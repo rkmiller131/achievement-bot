@@ -22,4 +22,5 @@ client.on(Events.ClientReady, () => {
 
 // Need to generate a discord bot token from dev portal and put in .env
 // Automatically passed in as an arg for client.login(DISCORD_TOKEN)
+// When running the start script, can see the bot as "online" in the server
 client.login();
