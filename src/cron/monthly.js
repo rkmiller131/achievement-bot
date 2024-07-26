@@ -1,3 +1,5 @@
+// UPDATE: check out MessageCollector from discord.js
+
 // Have a cron job that, at the end of every month, iterates through all the channels
 
 // For each channel, reverse iterate through all the messages and as long as message posted date is in bounds of current month,
