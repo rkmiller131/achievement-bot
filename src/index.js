@@ -14,7 +14,7 @@ const client = new Client({
   // intents define which events discord sends to the bot.
   // Not only are the permissions set in dev portal and confirmed upon allowing the bot on the server,
   // but they're also enforced here. Bot can work with empty [] but Discord suggests adding
-  // the minimum "guilds" intent (guild = server), taken from GatewayIntentBits
+  // the minimum "guilds" intent (guild = server), taken from GatewayIntentBits (their websocket api)
   intents: [
     GatewayIntentBits.Guilds,
   ]
