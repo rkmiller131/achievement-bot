@@ -16,7 +16,9 @@ const client = new Client({
   // but they're also enforced here. Bot can work with empty [] but Discord suggests adding
   // the minimum "guilds" intent (guild = server), taken from GatewayIntentBits (their websocket api)
   intents: [
-    GatewayIntentBits.Guilds,
+    GatewayIntentBits.Guilds, // bare min to access server
+    GatewayIntentBits.GuildMessages, // intent to receive message events
+    GatewayIntentBits.MessageContent // intent to read message content/embeds/attachments, etc.
   ]
 });
 
