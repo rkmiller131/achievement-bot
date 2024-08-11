@@ -1,0 +1,58 @@
+[
+  {
+    "name": "First Impressions",
+    "description": "Make your first post or contribution",
+    "points": 10,
+    "rarity": "Common",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318552/helloWorld_loxia2.png"
+  },
+  {
+    "name": "Welcome Wagon",
+    "description": "Greet and wave to 10 new members",
+    "points": 15,
+    "rarity": "Common",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318552/helloWorld_loxia2.png"
+  },
+  {
+    "name": "Senpai Noticed",
+    "description": "Get 10 reactions on a single post",
+    "points": 20,
+    "rarity": "Common",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318603/senpaiNoticed_orvcl0.png"
+  },
+  {
+    "name": "GIF Gifter",
+    "description": "Share 20 GIFs across the server",
+    "points": 20,
+    "rarity": "Common",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318577/gifGifter_lf0nhl.png"
+  },
+  {
+    "name": "Social Butterfly",
+    "description": "Participate in 5 different text channels",
+    "points": 25,
+    "rarity": "Rare",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318622/socialButterfly_rhrjvi.png"
+  },
+  {
+    "name": "Reaction Rockstar",
+    "description": "Get 25 reactions on a single post",
+    "points": 30,
+    "rarity": "Rare",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318718/reactionRockstar_jrfo1z.png"
+  },
+  {
+    "name": "Frequent Flyer",
+    "description": "Join and leave voice channels 100 times",
+    "points": 30,
+    "rarity": "Rare",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318596/frequentFlyer_cwnjp5.png"
+  },
+  {
+    "name": "Jabberwocky",
+    "description": "Send 100 messages in a single text channel",
+    "points": 30,
+    "rarity": "Rare",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318600/jabberwocky_hvfjaq.png"
+  }
+]

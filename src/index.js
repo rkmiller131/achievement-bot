@@ -7,6 +7,7 @@ const {
 } = require('discord.js');
 const { clientReadyHandler } = require('./events/handlers/clientReady');
 const { interactionCreateHandler } = require('./events/handlers/interactionCreate');
+const { messageCreateHandler } = require('./events/handlers/messageCreate');
 const pingCommand = require('./commands/ping');
 
 // Event Emitter Class (discord.js is OOP)
@@ -30,6 +31,7 @@ client.commands.set(pingCommand.data.name, pingCommand)
 // Using .once because this event only needs to happen upon first logging in.
 client.once(Events.ClientReady, clientReadyHandler);
 client.on(Events.InteractionCreate, interactionCreateHandler);
+client.on(Events.MessageCreate, messageCreateHandler);
 
 // Need to generate a discord bot token from dev portal and put in .env
 // Automatically passed in as an arg for client.login(DISCORD_TOKEN)

@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+const achievementSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  points: { type: Number, required: true },
+  rarity: { type: String, required: true },
+  assetURL: { type: String, required: true },
+});
+
 const userAchievementSchema = new mongoose.Schema({
   achievement_id: {
     type: mongoose.Schema.Types.ObjectId,
@@ -19,9 +27,10 @@ const userSchema = new mongoose.Schema({
     unique: true,
     index: true
   },
+  globalName: { type: String, required: true },
   channelsParticpatedIn: {
     type: Map,
-    of: Number // storing [channelName]: participationCount
+    of: Number // storing [channelIdNumber]: participationCount
   },
   reactionStreak: {
     type: Number,
@@ -42,25 +51,20 @@ const channelActivitySchema = new mongoose.Schema({
 })
 
 const serverSchema = new mongoose.Schema({
-  guildId: String,
-  name: String,
+  guildId: {
+    type: String,
+    required: true,
+    unique: true
+  },
   users: [userSchema],
   channelActivity: {
     type: Map,
-    of: [channelActivitySchema]
+    of: [channelActivitySchema] // storing [channelIdNumber]: channelActivitySchema
   }
-
 });
 
-const achievementSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String, required: true },
-  points: { type: Number, required: true },
-  assetURL: { type: String, required: true },
-});
-
-const Server = mongoose.model('Server', serverSchema);
-const Achievement = mongoose.model('Achievement', achievementSchema);
+const Server = mongoose.model('Servers', serverSchema);
+const Achievement = mongoose.model('Achievements', achievementSchema);
 
 module.exports = {
   Server,

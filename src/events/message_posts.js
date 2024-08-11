@@ -5,6 +5,8 @@
 // could pass in achievement name and user id and have the generator check user_achievements and achievements table
 
 // listen for when any message is posted anywhere
+  // First, extract the server id from the message in question, save as a ref so that we're saving all info under that server in the collection
+  // Try to find the server in the mongo collection, and if it doesn't exist, create an entry for that server.
 
   // Check if the message author exists in our database and save reference to user and channel (?)
   // If !user:
