@@ -2,7 +2,7 @@ const {
   REST,
   Routes
 } = require('discord.js');
-const { connectMongoDB } = require('../../database/mongo-service');
+const { connectMongoDB } = require('../../database/mongo.service');
 
 // Sometimes it's nice to specify a version so that, in the future, the commands still work as expected
 const discordAPI = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);

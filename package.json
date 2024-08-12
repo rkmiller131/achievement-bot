@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "Discord",
@@ -22,6 +22,8 @@
     "mongoose": "^8.5.2"
   },
   "devDependencies": {
+    "corde": "^4.8.0",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.4"
   }
 }

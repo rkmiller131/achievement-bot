@@ -1,8 +1,5 @@
 const { getServer } = require('../../utils/server.collection');
-const { generateAchievement } = require('../../utils/achievement.collection');
-const { Server, Achievement } = require('../../database/schema');
-
-const MENTION_STRING = `New Achievement <@${userId}>`;
+const checkFirstImpressions = require('../achievementChecks/firstImpressions');
 
 // listen for when any message is posted anywhere
 async function messageCreateHandler(message) {
@@ -14,40 +11,17 @@ async function messageCreateHandler(message) {
   const channelName = message.channel.name;
   const userId = message.author.id;
   const userName = message.author.globalName;
+  // Check if the message author exists in our database and save reference to user
+  let user = server.users.find((u) => u.userId === userId);
 
   // FIRST IMPRESSIONS ACHIEVEMENT
-  try {
-    // Check if the message author exists in our database and save reference to user and channel
-    let user = server.users.find((u) => u.userId === userId);
-    if (!user) {
-      // then this is the user's first post. Give them first impressions achievement:
-      const firstImpressions = await Achievement.findOne({ name: 'First Impressions' }).exec();
-      if (!firstImpressions) {
-        message.channel.send('The "First Impressions" achievement is not available at this time');
-        return;
-      }
-      const achievementEmbed = generateAchievement(firstImpressions);
-      // add them to the database, give them First Impressions achievement
-      // update the user variable with this newly created user
-      // update the users achievement list to include this achievement in one, atomized transaction
-      server.users.push({
-        userId,
-        globalName: userName,
-        channelsParticpatedIn: {},
-        achievements: [{
-          achievement_id: firstImpressions._id,
-          date_acquired: Date.now()
-        }]
-      });
-      await server.save();
-
-      user = server.users[server.users.length - 1];
-      message.channel.send({ embeds: [achievementEmbed], content: MENTION_STRING });
-    }
-  } catch (error) {
-    console.error('Error in creating new user, First Impressions: ', error);
-    message.channel.send('An error occurred in saving this user and their first post achievement :(');
+  if (!user) {
+    // then this is the user's first post. Give them first impressions achievement and update our user variable:
+    await checkFirstImpressions(message, server, userId);
+    user = server.users.find((u) => u.userId === userId);
   }
+
+  // SOCIAL BUTTERFLY ACHIEVEMENT
 
 
   // channel name: message.channel.name (for 'art')
@@ -113,4 +87,50 @@ message is:  <ref *1> Message {
   interaction: null,
   poll: null
 }
+*/
+
+
+// * note: have checks within database (try/catch) on user_achievements table so if they already have an achievment, nothing happens
+// * Make a helper function for that achievement check
+
+// * Also note: can make an achievment generator, since these are all embeds, and that generator function will increment user's acheivmenet count
+// could pass in achievement name and user id and have the generator check user_achievements and achievements table
+
+// listen for when any message is posted anywhere
+  // First, extract the server id from the message in question, save as a ref so that we're saving all info under that server in the collection
+  // Try to find the server in the mongo collection, and if it doesn't exist, create an entry for that server.
+
+  // Check if the message author exists in our database and save reference to user and channel (?)
+  // If !user:
+    // add them to the database, give them First Impressions achievement
+    // Increment the user's achievement count
+
+  // set user's reaction streak to 0
+
+  // Check the user's channels_particpated_in array - if not includes current channel name,
+    // add channel name to this user's participated channels array
+    // if the user's participated channels array length is >= 5,
+      // Give this user the Social Butterfly achievement
+      // Increment the user's achievment count
+
+  // Check what time the message was posted - between 12AM and 4AM?
+    // give this user the Overachiever/night owl achievement
+    // Increment the user's acheivement count
+
+
+  // Put this check at the end of every event:
+  // If this user's achievment count is (count of the achievments table - 1)
+    // Give this user the Final Boss achievement
+    // Increment the user's achievment count
+
+
+
+/*
+[X] First Impressions
+[ ] Gif Gifter
+[X] Social Butterfly
+[ ] Jabberwocky
+[ ] Art Aficionado
+[X] Overachiever
+[X] Final Boss
 */
