@@ -1,12 +1,12 @@
-const { MENTION_STRING } = require('../../../utils/constants');
-const { Achievement } = require('../../../database/schema');
-const { generateAchievement } = require('../../../utils/achievement.collection');
+const { MENTION_STRING } = require('../../utils/constants');
+const { Achievement } = require('../../database/schema');
+const { generateAchievement } = require('../../utils/achievement.collection');
 
 module.exports = async function checkFirstImpressions(message, server, userId) {
   const userName = message.author.globalName;
 
   try {
-    const firstImpressions = await Achievement.findOne({ name: 'First Impressions' }).exec();
+    const firstImpressions = await Achievement.findOne({ name: 'First Impressions' });
     if (!firstImpressions) {
       message.channel.send('The "First Impressions" achievement is not available at this time');
       return;
