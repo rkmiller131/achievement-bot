@@ -29,10 +29,11 @@
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) 
 ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 
 ## Features
 <h3>👉🏻 Unlock 15 Different Achievements</h3>
-<img src="https://github.com/user-attachments/assets/0f93ef2f-6ab2-40e3-8e64-e9487bd985ca" alt="Achievement Bot Response" style="width: 650px;"/>
+<img src="https://github.com/user-attachments/assets/adeb7a73-fc0a-40c5-9908-798bc603c075" alt="Achievement Bot Response" style="width: 650px;"/>
 <br>
 <h3>👉🏻 Want to see them all?</h3>
 <details>
