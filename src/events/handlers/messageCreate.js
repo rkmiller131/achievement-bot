@@ -1,27 +1,59 @@
-const { getServer } = require('../../utils/server.collection');
+const {
+  getUserDocument,
+  updateUserChannels,
+  updateUserDocument,
+  userHasAchievement
+} = require('../../utils/server.collection');
+const { Server } = require('../../database/schema');
 const checkFirstImpressions = require('../achievementChecks/firstImpressions');
+const checkSocialButterfly = require('../achievementChecks/socialButterfly');
 
 // listen for when any message is posted anywhere
 async function messageCreateHandler(message) {
   if(message.author.bot) return;
 
   // Try to find the server in the mongo collection, and if it doesn't exist, create an entry for that server.
-  const server = await getServer(message.guildId);
+  const guildId = message.guildId;
   const channelId = message.channelId;
   const channelName = message.channel.name;
   const userId = message.author.id;
   const userName = message.author.globalName;
   // Check if the message author exists in our database and save reference to user
-  let user = server.users.find((u) => u.userId === userId);
+  // const server = await getServer(guildId);
+  // const user = server.users.find((u) => u.userId === userId);
+  const user = await getUserDocument(guildId, userId);
 
   // FIRST IMPRESSIONS ACHIEVEMENT
   if (!user) {
     // then this is the user's first post. Give them first impressions achievement and update our user variable:
-    await checkFirstImpressions(message, server, userId);
-    user = server.users.find((u) => u.userId === userId);
+    await checkFirstImpressions(message, guildId, userId);
   }
 
+  // Set the User's reaction streak to 0
+  // (if they sent a message, this breaks their Introvert achievement streak)
+  // const findUserFilter = { 'server.guildId': guildId, 'server.users.userId': userId };
+  const reactionUpdate = {
+    $set: {
+      'server.users.$[user].reactionStreak': 0
+    }
+  };
+  // updateOne is atomic, but save is generally preferred according to mongoose docs. You can even save down to the
+  // user level rather than server.save, especially if only something small has changed. UPDATE: Mongoose does not save subdocs to the db.
+  // user.reactionStreak = 0;
+  // await server.save();
+  // await Server.findOneAndUpdate(findUserFilter, reactionUpdate, { arrayFilters: ['user.userId', userId], new: true });
+  await updateUserDocument(guildId, userId, reactionUpdate);
+
+  // Update the user's participation count for this channel
+  await updateUserChannels(message, guildId, userId);
+
   // SOCIAL BUTTERFLY ACHIEVEMENT
+  await checkSocialButterfly(message, user, userId, guildId);
+
+  // JABBERWOCKY ACHIEVEMENT
+  // check if 100 messages have been sent in this particular text channel by this user
+  // make sure they don't already have this achievement
+  // generate their achievement
 
 
   // channel name: message.channel.name (for 'art')
@@ -89,13 +121,6 @@ message is:  <ref *1> Message {
 }
 */
 
-
-// * note: have checks within database (try/catch) on user_achievements table so if they already have an achievment, nothing happens
-// * Make a helper function for that achievement check
-
-// * Also note: can make an achievment generator, since these are all embeds, and that generator function will increment user's acheivmenet count
-// could pass in achievement name and user id and have the generator check user_achievements and achievements table
-
 // listen for when any message is posted anywhere
   // First, extract the server id from the message in question, save as a ref so that we're saving all info under that server in the collection
   // Try to find the server in the mongo collection, and if it doesn't exist, create an entry for that server.
@@ -126,11 +151,25 @@ message is:  <ref *1> Message {
 
 
 /*
-[X] First Impressions
+[ ] First Impressions
 [ ] Gif Gifter
-[X] Social Butterfly
+[ ] Social Butterfly
 [ ] Jabberwocky
 [ ] Art Aficionado
-[X] Overachiever
-[X] Final Boss
+[ ] Overachiever
+[ ] Final Boss
+
+[ ] Welcome Wagon
+[ ] Senpai Noticed
+[ ] Reaction Rockstar
+[ ] Introvert
+[ ] Final Boss
+
+[ ] Voice Channel Veteran
+[ ] Frequent Flyer
+[ ] Final Boss
+
+[ ] Daily Diligence
+[ ] Top Contributor
+[ ] Final Boss
 */

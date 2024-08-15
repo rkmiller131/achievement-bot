@@ -1,4 +1,13 @@
 const { EmbedBuilder } = require('discord.js');
+const { Achievement } = require('../database/schema');
+
+async function findAchievement(achievementName) {
+	const achievement = await Achievement.findOne({ name: achievementName });
+	if (!achievement) {
+		throw new Error(`Couldn't retrieve "${achievementName}" from the Achievement Collection`);
+	}
+	return achievement;
+}
 
 function generateAchievement(achievement) {
 	const { rarity, name, assetURL } = achievement;
@@ -19,5 +28,6 @@ function generateAchievement(achievement) {
 }
 
 module.exports = {
+	findAchievement,
   generateAchievement,
 }

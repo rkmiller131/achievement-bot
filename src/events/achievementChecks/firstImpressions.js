@@ -1,23 +1,20 @@
 const { MENTION_STRING } = require('../../utils/constants');
 const { Achievement } = require('../../database/schema');
-const { generateAchievement } = require('../../utils/achievement.collection');
+const { generateAchievement, findAchievement } = require('../../utils/achievement.collection');
 
-module.exports = async function checkFirstImpressions(message, server, userId) {
+module.exports = async function checkFirstImpressions(message, guildId, userId) {
   const userName = message.author.globalName;
+  const server = await getServer(guildId);
 
   try {
-    const firstImpressions = await Achievement.findOne({ name: 'First Impressions' });
-    if (!firstImpressions) {
-      message.channel.send('The "First Impressions" achievement is not available at this time');
-      return;
-    }
+    const firstImpressions = await findAchievement('First Impressions');
     const achievementEmbed = generateAchievement(firstImpressions);
     // add them to the database, give them First Impressions achievement
     // update the users achievement list to include this achievement in one, atomized transaction
     server.users.push({
       userId,
       globalName: userName,
-      channelsParticpatedIn: {},
+      channelsParticipatedIn: {},
       achievements: [{
         achievement_id: firstImpressions._id,
         date_acquired: Date.now()

@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     index: true
   },
   globalName: { type: String, required: true },
-  channelsParticpatedIn: {
+  channelsParticipatedIn: {
     type: Map,
     of: Number // storing [channelIdNumber]: participationCount
   },
