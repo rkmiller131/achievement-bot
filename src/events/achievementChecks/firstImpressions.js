@@ -17,6 +17,7 @@ module.exports = async function checkFirstImpressions(message, guildId, userId) 
       channelsParticipatedIn: {},
       achievements: [{
         achievement_id: firstImpressions._id,
+        points: firstImpressions.points,
         date_acquired: Date.now()
       }]
     });

@@ -15,6 +15,10 @@ const userAchievementSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  points: {
+    type: Number,
+    default: 0
+  },
   date_acquired: {
     type: Date,
     default: Date.now

@@ -15,6 +15,7 @@ module.exports = async function checkSocialButterfly(message, guildId, userId) {
     const achievementEmbed = generateAchievement(socialButterfly);
     const achievementRef = {
       achievement_id: socialButterfly._id,
+      points: socialButterfly.points,
       date_acquired: Date.now()
     }
 
