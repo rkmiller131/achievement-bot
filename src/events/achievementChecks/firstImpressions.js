@@ -1,5 +1,5 @@
 const { MENTION_STRING } = require('../../utils/constants');
-const { Achievement } = require('../../database/schema');
+const { getServer } = require('../../utils/server.collection');
 const { generateAchievement, findAchievement } = require('../../utils/achievement.collection');
 
 module.exports = async function checkFirstImpressions(message, guildId, userId) {

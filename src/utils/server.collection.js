@@ -1,4 +1,5 @@
 const { Server } = require('../database/schema');
+const mongoose = require('mongoose');
 
 async function getServer(guildId) {
   try {
@@ -14,14 +15,36 @@ async function getServer(guildId) {
   }
 }
 
-async function getUserDocument(guildId, serverId) {
+// ---------------------------------------------------------------------------------
+
+async function getUserDocument(guildId, userId) {
   const server = await getServer(guildId);
   const user = server.users.find((u) => u.userId === userId);
-  return user;
+  return { user, server };
 }
 
-async function updateUserChannels(message, user, server) {
+// ---------------------------------------------------------------------------------
+
+async function giveUserAchievement(achievementRef, guildId, userId) {
+  try {
+    await Server.findOneAndUpdate(
+      { 'guildId': guildId },
+      { $push: {
+          'users.$[user].achievements': achievementRef
+      }},
+      { arrayFilters: [{ 'user.userId': userId }]}
+    );
+  } catch (error) {
+    console.error(`Achievement failed to push into user achievements`);
+    throw error;
+  }
+}
+
+// ---------------------------------------------------------------------------------
+
+async function updateUserChannels(message, guildId, userId) {
   const channelName = message.channel.name;
+  const { user, server } = await getUserDocument(guildId, userId);
 
   if (!user.channelsParticipatedIn.has(channelName)) {
     // Add channel name to this user's participated channels map with a count of 1
@@ -39,49 +62,28 @@ async function updateUserChannels(message, user, server) {
   }
 }
 
-async function updateUserDocument(guildId, userId, updateQuery) {
-  const findUserFilter = { 'server.guildId': guildId, 'server.users.userId': userId };
-  const updatedUser = await Server.findOneAndUpdate(findUserFilter, updateQuery, { new: true });
-  return updatedUser;
-}
+// ---------------------------------------------------------------------------------
 
 async function userHasAchievement(achievement, user, guildId) {
   try {
-    // const result = await Server.aggregate([
-    //   {
-    //     $match: { guildId: guildId } // find only docs that match the guildId
-    //   },
-    //   {
-    //     $unwind: "$users" // deconstruct users array, map each output with element value
-    //   },
-    //   {
-    //     $match: { "users.userId": user.userId } // now match that new element value for the given userId
-    //   },
-    //   {
-    //     $project: { // create a new true/false field called hasAchievement
-    //       hasAchievement: {
-    //         $elemMatch: { // return true if we match the achievement id, false otherwise
-    //           achievement_id: achievement._id
-    //         }
-    //       }
-    //     }
-    //   }
-    // ]);
-
     const result = await Server.aggregate()
       .match({ guildId }) // find only docs that match the guildId
       .unwind('$users') // deconstruct users array, map each output with element value
       .match({ 'users.userId': user.userId }) // now match that new element value for the given userId
-      .project({ // create a new true/false field called hasAchievement
-        hasAchievement: {
-          $elemMatch: { // return true if we match the achievement id, false otherwise
-            achievement_id: achievement._id
-          }
+      .project({ // passes along the documents with requested fields to the next stage in pipeline
+        // after an unwind, the resulting document replaces the array with an element value.
+        // so instead of users.userId.achievements, we now have users: { userId: 123, achievements: {...etc} }
+        // see what I mean by commenting out everything below project and console logging result
+        achievements: '$users.achievements'
+      })
+      .match({ achievements: {
+        $elemMatch: {
+          achievement_id: new mongoose.Types.ObjectId(achievement._id)
         }
-      });
+      }});
 
     // Check if the result array is empty or not, returns true or false
-    return result.length > 0 && result[0].hasAchievement !== null;
+    return result.length > 0;
   } catch (error) {
     console.error('Error checking user achievement:', error);
     return false;
@@ -92,7 +94,7 @@ async function userHasAchievement(achievement, user, guildId) {
 module.exports = {
   getServer,
   getUserDocument,
+  giveUserAchievement,
   updateUserChannels,
-  updateUserDocument,
   userHasAchievement,
 }

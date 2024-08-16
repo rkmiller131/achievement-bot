@@ -12,7 +12,8 @@ const userAchievementSchema = new mongoose.Schema({
   achievement_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Achievement',
-    required: true
+    required: true,
+    unique: true
   },
   date_acquired: {
     type: Date,

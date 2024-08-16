@@ -1,8 +1,6 @@
 const {
   getUserDocument,
   updateUserChannels,
-  updateUserDocument,
-  userHasAchievement
 } = require('../../utils/server.collection');
 const { Server } = require('../../database/schema');
 const checkFirstImpressions = require('../achievementChecks/firstImpressions');
@@ -12,16 +10,14 @@ const checkSocialButterfly = require('../achievementChecks/socialButterfly');
 async function messageCreateHandler(message) {
   if(message.author.bot) return;
 
-  // Try to find the server in the mongo collection, and if it doesn't exist, create an entry for that server.
   const guildId = message.guildId;
-  const channelId = message.channelId;
-  const channelName = message.channel.name;
+  // const channelId = message.channelId;
+  // const channelName = message.channel.name;
   const userId = message.author.id;
-  const userName = message.author.globalName;
+  // const userName = message.author.globalName;
+
   // Check if the message author exists in our database and save reference to user
-  // const server = await getServer(guildId);
-  // const user = server.users.find((u) => u.userId === userId);
-  const user = await getUserDocument(guildId, userId);
+  let { user } = await getUserDocument(guildId, userId);
 
   // FIRST IMPRESSIONS ACHIEVEMENT
   if (!user) {
@@ -31,24 +27,19 @@ async function messageCreateHandler(message) {
 
   // Set the User's reaction streak to 0
   // (if they sent a message, this breaks their Introvert achievement streak)
-  // const findUserFilter = { 'server.guildId': guildId, 'server.users.userId': userId };
-  const reactionUpdate = {
-    $set: {
-      'server.users.$[user].reactionStreak': 0
-    }
-  };
-  // updateOne is atomic, but save is generally preferred according to mongoose docs. You can even save down to the
-  // user level rather than server.save, especially if only something small has changed. UPDATE: Mongoose does not save subdocs to the db.
-  // user.reactionStreak = 0;
-  // await server.save();
-  // await Server.findOneAndUpdate(findUserFilter, reactionUpdate, { arrayFilters: ['user.userId', userId], new: true });
-  await updateUserDocument(guildId, userId, reactionUpdate);
+  await Server.findOneAndUpdate(
+    { 'guildId': guildId },
+    { $set: {
+        'users.$[user].reactionStreak': 0
+    }}, //         ^-----v
+    { arrayFilters: [{ 'user.userId': userId }] }
+);
 
   // Update the user's participation count for this channel
   await updateUserChannels(message, guildId, userId);
 
   // SOCIAL BUTTERFLY ACHIEVEMENT
-  await checkSocialButterfly(message, user, userId, guildId);
+  await checkSocialButterfly(message, guildId, userId);
 
   // JABBERWOCKY ACHIEVEMENT
   // check if 100 messages have been sent in this particular text channel by this user

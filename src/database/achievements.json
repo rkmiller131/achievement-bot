@@ -54,5 +54,12 @@
     "points": 30,
     "rarity": "Rare",
     "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318600/jabberwocky_hvfjaq.png"
+  },
+  {
+    "name": "Introvert",
+    "description": "React to 10 messages in a row without posting one yourself",
+    "points": 30,
+    "rarity": "Rare",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723831650/introvert_cmpu5c.png"
   }
 ]

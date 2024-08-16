@@ -1,26 +1,24 @@
 const { MENTION_STRING } = require('../../utils/constants');
 const { Server } = require('../../database/schema');
 const { generateAchievement, findAchievement } = require('../../utils/achievement.collection');
-const { userHasAchievement } = require('../../utils/server.collection');
+const { getUserDocument, giveUserAchievement, userHasAchievement } = require('../../utils/server.collection');
 
-module.exports = async function checkSocialButterfly(message, user, userId, guildId) {
-  if (user.channelsParticipatedIn.size < 2) return;
+module.exports = async function checkSocialButterfly(message, guildId, userId) {
+  const { user } = await getUserDocument(guildId, userId);
+  if (user.channelsParticipatedIn.size < 5) return;
+
   try {
     const socialButterfly = await findAchievement('Social Butterfly');
-    if (await userHasAchievement(socialButterfly, user, guildId)) return;
+    const userAlreadyHas = await userHasAchievement(socialButterfly, user, guildId);
+    if (userAlreadyHas) return;
 
     const achievementEmbed = generateAchievement(socialButterfly);
-
-    const findUserFilter = { 'server.guildId': guildId, 'server.users.userId': userId };
-    const andUpdate = {
-      $push: {
-        'server.users.$.achievements': { // first element in users array that matches achievements; only the achivements arr of the first user will be affected
-          achievement_id: socialButterfly._id,
-          date_acquired: Date.now()
-        }
-      }
+    const achievementRef = {
+      achievement_id: socialButterfly._id,
+      date_acquired: Date.now()
     }
-    await Server.findOneAndUpdate(findUserFilter, andUpdate, { new: true });
+
+    await giveUserAchievement(achievementRef, guildId, userId);
     message.channel.send({ embeds: [achievementEmbed], content: MENTION_STRING(userId) });
 
   } catch (error) {
