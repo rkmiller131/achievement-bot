@@ -39,6 +39,7 @@
 <details>
   <summary>Spoiler! 👀</summary>
   <img src="https://github.com/user-attachments/assets/226ec3d5-b61c-4ed6-a6d4-f27405ad5434" alt="achievmentsP1" style="width: 650px;"/>
+  <img src="https://github.com/user-attachments/assets/a9ed7b3c-d1b2-4db5-87e2-ea3092a72a6e" alt="achievmentsP2" style="width: 650px;"/>
 </details>
 <h3>👉🏻 Earn Points and Rank on the Server Leaderboard</h3>
 Todo: Insert picture of community leaderboard
