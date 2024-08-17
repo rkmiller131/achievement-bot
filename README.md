@@ -38,9 +38,37 @@
 <h3>👉🏻 Want to see them all?</h3>
 <details>
   <summary>Spoiler! 👀</summary>
-  Todo: Put image of all achievment badges
+  <img src="https://github.com/user-attachments/assets/226ec3d5-b61c-4ed6-a6d4-f27405ad5434" alt="achievmentsP1" style="width: 650px;"/>
 </details>
 <h3>👉🏻 Earn Points and Rank on the Server Leaderboard</h3>
 Todo: Insert picture of community leaderboard
 
 ## How to Use
+### ➕ Adding the bot to your server
+To add the bot to your server, send an invite...(TODO: link when bot is complete and ready for public access)
+
+### 🖥️ Testing the Project Locally
+1️⃣ If you'd like to clone down the project code for yourself, create a folder on your PC where you wish to save the repo.
+```
+cd folderIWantToSaveIn
+git clone https://github.com/rkmiller131/achievement-bot.git
+```
+2️⃣ Now change directories into the folder you just cloned and open with your IDE (Example: VSCode)
+```
+cd achievement-bot
+code .
+```
+3️⃣ Once you're in the root directory for the project, install all dependencies:
+```
+npm install
+```
+4️⃣ **Note, there is an `example.env` file you will need to configure your own secret keys for. <br>
+* Get started with your own bot by registering on the [Discord Developer Portal](https://discord.com/developers/docs/intro) <br>
+* Sign up for [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) for a connection path
+```
+cp example.env .env
+```
+5️⃣ And run the project with:
+```
+npm run dev
+```
