@@ -1,8 +1,8 @@
 const {
   getUserDocument,
+  resetReactionStreak,
   updateUserChannels,
 } = require('../../utils/server.collection');
-const { Server } = require('../../database/schema');
 const checkFirstImpressions = require('../achievementChecks/firstImpressions');
 const checkSocialButterfly = require('../achievementChecks/socialButterfly');
 
@@ -27,13 +27,7 @@ async function messageCreateHandler(message) {
 
   // Set the User's reaction streak to 0
   // (if they sent a message, this breaks their Introvert achievement streak)
-  await Server.findOneAndUpdate(
-    { 'guildId': guildId },
-    { $set: {
-        'users.$[user].reactionStreak': 0
-    }}, //         ^-----v
-    { arrayFilters: [{ 'user.userId': userId }] }
-);
+  await resetReactionStreak(guildId, userId);
 
   // Update the user's participation count for this channel
   await updateUserChannels(message, guildId, userId);
@@ -142,9 +136,9 @@ message is:  <ref *1> Message {
 
 
 /*
-[ ] First Impressions
+[X] First Impressions
 [ ] Gif Gifter
-[ ] Social Butterfly
+[X] Social Butterfly
 [ ] Jabberwocky
 [ ] Art Aficionado
 [ ] Overachiever

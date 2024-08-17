@@ -42,6 +42,18 @@ async function giveUserAchievement(achievementRef, guildId, userId) {
 
 // ---------------------------------------------------------------------------------
 
+async function resetReactionStreak(guildId, userId) {
+  await Server.findOneAndUpdate(
+    { 'guildId': guildId },
+    { $set: {
+        'users.$[user].reactionStreak': 0
+    }}, //         ^-----v
+    { arrayFilters: [{ 'user.userId': userId }] }
+  );
+}
+
+// ---------------------------------------------------------------------------------
+
 async function updateUserChannels(message, guildId, userId) {
   const channelName = message.channel.name;
   const { user, server } = await getUserDocument(guildId, userId);
@@ -95,6 +107,7 @@ module.exports = {
   getServer,
   getUserDocument,
   giveUserAchievement,
+  resetReactionStreak,
   updateUserChannels,
   userHasAchievement,
 }
