@@ -7,8 +7,14 @@ export default [
   {languageOptions: { globals: globals.browser }},
   js.configs.recommended,
   {
-      rules: {
-          "no-unused-vars": "error"
-      }
+    "plugins": ["jest"],
+    rules: {
+        "no-unused-vars": "error",
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error"
+    }
   }
 ];

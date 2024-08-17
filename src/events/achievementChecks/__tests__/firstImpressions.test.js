@@ -1,8 +1,12 @@
 const checkFirstImpressions = require('../firstImpressions');
 const { Achievement } = require('../../../database/schema');
 const { generateAchievement } = require('../../../utils/achievement.collection');
+const { getServer } = require('../../../utils/server.collection');
 
 jest.mock('../../../database/schema');
+jest.mock('../../../utils/server.collection', () => ({
+  getServer: jest.fn(),
+}));
 
 beforeAll(() => {
   jest.spyOn(Date, 'now').mockImplementation(() => new Date('2024-08-13T16:50:32.114Z').getTime());
@@ -31,11 +35,17 @@ describe('First Impressions Achievement', () => {
     firstImpressions = {
       _id: 'achievement-id',
       name: 'First Impressions',
+      points: 10,
       rarity: 'Common',
       assetURL: 'https://example.com/image.png'
     };
 
     Achievement.findOne.mockResolvedValue(firstImpressions);
+    getServer.mockReturnValue({
+      _id: 'fakeServerId',
+      users: [],
+      save: jest.fn().mockResolvedValue(true)
+    })
   });
 
   afterEach(() => {
@@ -49,13 +59,11 @@ describe('First Impressions Achievement', () => {
     await checkFirstImpressions(message, server, userId);
 
     expect(Achievement.findOne).toHaveBeenCalledWith({ name: 'First Impressions' });
-    expect(message.channel.send).toHaveBeenCalledWith('The "First Impressions" achievement is not available at this time');
+    expect(message.channel.send).toHaveBeenCalledWith('An error occurred in saving this user and their first post achievement :(');
   });
 
   it('should call generateAchievement and send the correct embed', async () => {
     await checkFirstImpressions(message, server, userId);
-
-    console.log('Arguments passed to message.channel.send:', message.channel.send.mock.calls);
 
     expect(message.channel.send).toHaveBeenCalledWith({
       embeds: [{ data: {
