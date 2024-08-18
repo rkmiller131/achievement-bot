@@ -5,16 +5,15 @@ const {
 } = require('../../utils/server.collection');
 const checkFirstImpressions = require('../achievementChecks/firstImpressions');
 const checkSocialButterfly = require('../achievementChecks/socialButterfly');
+const checkJabberwocky = require('../achievementChecks/jabberwocky');
 
 // listen for when any message is posted anywhere
 async function messageCreateHandler(message) {
   if(message.author.bot) return;
 
   const guildId = message.guildId;
-  // const channelId = message.channelId;
-  // const channelName = message.channel.name;
+  const channelName = message.channel.name;
   const userId = message.author.id;
-  // const userName = message.author.globalName;
 
   // Check if the message author exists in our database and save reference to user
   let { user } = await getUserDocument(guildId, userId);
@@ -36,9 +35,21 @@ async function messageCreateHandler(message) {
   await checkSocialButterfly(message, guildId, userId);
 
   // JABBERWOCKY ACHIEVEMENT
-  // check if 100 messages have been sent in this particular text channel by this user
-  // make sure they don't already have this achievement
+  await checkJabberwocky(message, guildId, userId);
+
+  // INSOMNIAC ACHIEVEMENT
+  // check if the message was sent between 2am and 4am local time
+  // check if the user already has this achievement
   // generate their achievement
+
+  // GIF GIFTER ACHIEVEMENT
+  // console.log('embed data is ', message.embeds[0].data.type) gifv -> iterate over the map of message.embeds and for each data type that is gifv...
+  // check if the message has a gif attached
+  // if so, increment the
+
+  // ART AFICIONADO
+  // if the channel name is anything that matches a regex of %art% (?) would this include something like 'apart'? maybe have a set of approved channel names: art, artistic, fan art, etc.
+  //
 
 
   // channel name: message.channel.name (for 'art')
@@ -106,27 +117,6 @@ message is:  <ref *1> Message {
 }
 */
 
-// listen for when any message is posted anywhere
-  // First, extract the server id from the message in question, save as a ref so that we're saving all info under that server in the collection
-  // Try to find the server in the mongo collection, and if it doesn't exist, create an entry for that server.
-
-  // Check if the message author exists in our database and save reference to user and channel (?)
-  // If !user:
-    // add them to the database, give them First Impressions achievement
-    // Increment the user's achievement count
-
-  // set user's reaction streak to 0
-
-  // Check the user's channels_particpated_in array - if not includes current channel name,
-    // add channel name to this user's participated channels array
-    // if the user's participated channels array length is >= 5,
-      // Give this user the Social Butterfly achievement
-      // Increment the user's achievment count
-
-  // Check what time the message was posted - between 12AM and 4AM?
-    // give this user the Overachiever/night owl achievement
-    // Increment the user's acheivement count
-
 
   // Put this check at the end of every event:
   // If this user's achievment count is (count of the achievments table - 1)
@@ -139,9 +129,9 @@ message is:  <ref *1> Message {
 [X] First Impressions
 [ ] Gif Gifter
 [X] Social Butterfly
-[ ] Jabberwocky
+[X] Jabberwocky
 [ ] Art Aficionado
-[ ] Overachiever
+[ ] Insomniac
 [ ] Final Boss
 
 [ ] Welcome Wagon
@@ -150,7 +140,7 @@ message is:  <ref *1> Message {
 [ ] Introvert
 [ ] Final Boss
 
-[ ] Voice Channel Veteran
+[ ] Oratory Overlord
 [ ] Frequent Flyer
 [ ] Final Boss
 
