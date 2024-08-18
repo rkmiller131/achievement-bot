@@ -6,6 +6,7 @@ const {
 const checkFirstImpressions = require('../achievementChecks/firstImpressions');
 const checkSocialButterfly = require('../achievementChecks/socialButterfly');
 const checkJabberwocky = require('../achievementChecks/jabberwocky');
+const checkInsomniac = require('../achievementChecks/insomniac');
 
 // listen for when any message is posted anywhere
 async function messageCreateHandler(message) {
@@ -38,9 +39,8 @@ async function messageCreateHandler(message) {
   await checkJabberwocky(message, guildId, userId);
 
   // INSOMNIAC ACHIEVEMENT
-  // check if the message was sent between 2am and 4am local time
-  // check if the user already has this achievement
-  // generate their achievement
+  await checkInsomniac(message, guildId, userId);
+
 
   // GIF GIFTER ACHIEVEMENT
   // console.log('embed data is ', message.embeds[0].data.type) gifv -> iterate over the map of message.embeds and for each data type that is gifv...
