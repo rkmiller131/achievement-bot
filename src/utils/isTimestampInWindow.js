@@ -8,7 +8,6 @@ module.exports = function isTimestampInWindow(timestamp, startTime, endTime) {
   // This adjusts the date to represent the exact moment in the user's local timezone.
   // negative localOffsets mean ahead and positives mean behind UTC (kinda counterintuitive), so subtract
   date.setMinutes(date.getMinutes() - localOffset);
-  console.log('date is ', date)
 
   // redefine the start and end times. Since we only care about the time in milliseconds (getTime()),
   // rest of the date can be generic epoch of today's date, with that localOffset adjustment
