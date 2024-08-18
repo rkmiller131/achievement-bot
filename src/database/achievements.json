@@ -11,7 +11,7 @@
     "description": "Greet and wave to 10 new members",
     "points": 15,
     "rarity": "Common",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318552/helloWorld_loxia2.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723917800/welcomeWagonRevised_jusmea.png"
   },
   {
     "name": "Senpai Noticed",
@@ -25,7 +25,7 @@
     "description": "Share 20 GIFs across the server",
     "points": 20,
     "rarity": "Common",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318577/gifGifter_lf0nhl.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723919043/gifGifterRevised_xkndug.png"
   },
   {
     "name": "Social Butterfly",
@@ -53,7 +53,7 @@
     "description": "Send 100 messages in a single text channel",
     "points": 30,
     "rarity": "Rare",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318600/jabberwocky_hvfjaq.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723918784/jabberwockyRevised_nfamf1.png"
   },
   {
     "name": "Introvert",
@@ -61,5 +61,47 @@
     "points": 30,
     "rarity": "Rare",
     "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723831650/introvert_cmpu5c.png"
+  },
+  {
+    "name": "Art Aficionado",
+    "description": "Share 10 original artworks in #art",
+    "points": 35,
+    "rarity": "Epic",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723921262/artAficionado_cw0gzr.png"
+  },
+  {
+    "name": "Top Contributor",
+    "description": "Send the most messages in a month",
+    "points": 40,
+    "rarity": "Epic",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723922037/topContributor_hkh2nm.png"
+  },
+  {
+    "name": "Daily Diligence",
+    "description": "Post every weekday for a month straight",
+    "points": 40,
+    "rarity": "Epic",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723922520/dailyDiligence_rtc4ge.png"
+  },
+  {
+    "name": "Insomniac",
+    "description": "Post between 2AM and 4AM local time",
+    "points": 50,
+    "rarity": "Legendary",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723922897/insomniacRevised_co4uak.png"
+  },
+  {
+    "name": "Oratory Overlord",
+    "description": "Spend 10 hours talking in voice channels",
+    "points": 50,
+    "rarity": "Legendary",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723924792/oratoryOverlord_enwpyx.png"
+  },
+  {
+    "name": "Final Boss",
+    "description": "Obtain all possible achievements",
+    "points": 100,
+    "rarity": "Legendary",
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723924254/finalBoss_l7bwiy.png"
   }
 ]
