@@ -7,6 +7,7 @@ const checkFirstImpressions = require('../achievementChecks/firstImpressions');
 const checkSocialButterfly = require('../achievementChecks/socialButterfly');
 const checkJabberwocky = require('../achievementChecks/jabberwocky');
 const checkInsomniac = require('../achievementChecks/insomniac');
+const checkGifGifter = require('../achievementChecks/gifGifter');
 
 async function messageCreateHandler(message) {
   if(message.author.bot) return;
@@ -30,12 +31,7 @@ async function messageCreateHandler(message) {
   await checkSocialButterfly(message, guildId, userId);
   await checkJabberwocky(message, guildId, userId);
   await checkInsomniac(message, guildId, userId);
-
-
-  // GIF GIFTER ACHIEVEMENT
-  // console.log('embed data is ', message.embeds[0].data.type) gifv -> iterate over the map of message.embeds and for each data type that is gifv...
-  // check if the message has a gif attached
-  // if so, increment the
+  await checkGifGifter(message, guildId, userId);
 
   // ART AFICIONADO
   // if the channel name is anything that matches a regex of %art% (?) would this include something like 'apart'? maybe have a set of approved channel names: art, artistic, fan art, etc.
@@ -117,7 +113,7 @@ message is:  <ref *1> Message {
 
 /*
 [X] First Impressions
-[ ] Gif Gifter
+[X] Gif Gifter
 [X] Social Butterfly
 [X] Jabberwocky
 [ ] Art Aficionado
