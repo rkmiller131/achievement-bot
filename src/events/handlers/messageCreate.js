@@ -8,20 +8,15 @@ const checkSocialButterfly = require('../achievementChecks/socialButterfly');
 const checkJabberwocky = require('../achievementChecks/jabberwocky');
 const checkInsomniac = require('../achievementChecks/insomniac');
 
-// listen for when any message is posted anywhere
 async function messageCreateHandler(message) {
   if(message.author.bot) return;
 
   const guildId = message.guildId;
   const channelName = message.channel.name;
   const userId = message.author.id;
-
-  // Check if the message author exists in our database and save reference to user
   let { user } = await getUserDocument(guildId, userId);
 
-  // FIRST IMPRESSIONS ACHIEVEMENT
   if (!user) {
-    // then this is the user's first post. Give them first impressions achievement and update our user variable:
     await checkFirstImpressions(message, guildId, userId);
   }
 
@@ -32,13 +27,8 @@ async function messageCreateHandler(message) {
   // Update the user's participation count for this channel
   await updateUserChannels(message, guildId, userId);
 
-  // SOCIAL BUTTERFLY ACHIEVEMENT
   await checkSocialButterfly(message, guildId, userId);
-
-  // JABBERWOCKY ACHIEVEMENT
   await checkJabberwocky(message, guildId, userId);
-
-  // INSOMNIAC ACHIEVEMENT
   await checkInsomniac(message, guildId, userId);
 
 
@@ -131,7 +121,7 @@ message is:  <ref *1> Message {
 [X] Social Butterfly
 [X] Jabberwocky
 [ ] Art Aficionado
-[ ] Insomniac
+[X] Insomniac
 [ ] Final Boss
 
 [ ] Welcome Wagon

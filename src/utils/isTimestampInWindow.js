@@ -11,9 +11,9 @@ module.exports = function isTimestampInWindow(timestamp, startTime, endTime) {
 
   // redefine the start and end times. Since we only care about the time in milliseconds (getTime()),
   // rest of the date can be generic epoch of today's date, with that localOffset adjustment
-  const start = new Date();
+  const start = new Date(timestamp);
   start.setHours(startTime, 0 - localOffset, 0);
-  const end = new Date();
+  const end = new Date(timestamp);
   end.setHours(endTime, 0 - localOffset, 0);
 
   // check if the timestamp falls within the time frame (returning true or false)
