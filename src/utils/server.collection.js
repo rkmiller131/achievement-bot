@@ -56,10 +56,7 @@ async function resetReactionStreak(guildId, userId) {
 // ---------------------------------------------------------------------------------
 
 async function updateUserChannels(message, guildId, userId) {
-  // update art channel participation manually (via force)
   const artRelatedChannel = isMessageArtRelated(message);
-  console.log('was it art related?', artRelatedChannel);
-  if (!artRelatedChannel) return;
 
   // create two separate channels for art - one for text participation and one for attachments (for art aficionado achievement tracking)
   const channelName = artRelatedChannel === 'art-text-only' ? artRelatedChannel : message.channel.name;
