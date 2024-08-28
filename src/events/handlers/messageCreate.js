@@ -117,7 +117,7 @@ message is:  <ref *1> Message {
 [X] Gif Gifter
 [X] Social Butterfly
 [X] Jabberwocky
-[ ] Art Aficionado
+[X] Art Aficionado
 [X] Insomniac
 [ ] Final Boss
 
