@@ -8,6 +8,7 @@ const checkSocialButterfly = require('../achievementChecks/socialButterfly');
 const checkJabberwocky = require('../achievementChecks/jabberwocky');
 const checkInsomniac = require('../achievementChecks/insomniac');
 const checkGifGifter = require('../achievementChecks/gifGifter');
+const checkArtAficionado = require('../achievementChecks/artAficionado');
 
 async function messageCreateHandler(message) {
   if(message.author.bot) return;
@@ -32,15 +33,15 @@ async function messageCreateHandler(message) {
   await checkJabberwocky(message, guildId, userId);
   await checkInsomniac(message, guildId, userId);
   await checkGifGifter(message, guildId, userId);
-
-  // ART AFICIONADO
-  // if the channel name is anything that matches a regex of %art% (?) would this include something like 'apart'? maybe have a set of approved channel names: art, artistic, fan art, etc.
-  //
+  await checkArtAficionado(message, guildId, userId);
 
 
-  // channel name: message.channel.name (for 'art')
-  // for gifs: check the message.embeds.data.type === 'gifv' or maybe 'gif'?
-  // for attachements, see attatchment collection (size for how many), then message.attachments.forEach((attach) => do something with attach.url or even check attach.contentType to see if 'image/webp' or maybe gif here too)
+  // UPDATE CHANNEL ACTIVITY
+  // grab the channelId and store in server.channelActivity: server.channelActivity.channelId =
+  // a merge of the array to include new entry obj (merge rather than push)
+
+  // for the future, when a new member is added: GatewayIntentBits.GuildMembers and Events.guildMemberAdd
+  // messageReactionAdd
 
 }
 

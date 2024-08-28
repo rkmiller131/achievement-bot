@@ -1,5 +1,6 @@
 const { Server } = require('../database/schema');
 const mongoose = require('mongoose');
+const isMessageArtRelated = require('./isMessageArtRelated');
 
 async function getServer(guildId) {
   try {
@@ -55,7 +56,13 @@ async function resetReactionStreak(guildId, userId) {
 // ---------------------------------------------------------------------------------
 
 async function updateUserChannels(message, guildId, userId) {
-  const channelName = message.channel.name;
+  // update art channel participation manually (via force)
+  const artRelatedChannel = isMessageArtRelated(message);
+  console.log('was it art related?', artRelatedChannel);
+  if (!artRelatedChannel) return;
+
+  // create two separate channels for art - one for text participation and one for attachments (for art aficionado achievement tracking)
+  const channelName = artRelatedChannel === 'art-text-only' ? artRelatedChannel : message.channel.name;
   const { user, server } = await getUserDocument(guildId, userId);
 
   if (!user.channelsParticipatedIn.has(channelName)) {
