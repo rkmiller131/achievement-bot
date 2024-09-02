@@ -9,6 +9,7 @@ const checkJabberwocky = require('../achievementChecks/jabberwocky');
 const checkInsomniac = require('../achievementChecks/insomniac');
 const checkGifGifter = require('../achievementChecks/gifGifter');
 const checkArtAficionado = require('../achievementChecks/artAficionado');
+const checkFinalBoss = require('../achievementChecks/finalBoss');
 
 async function messageCreateHandler(message) {
   if(message.author.bot) return;
@@ -34,6 +35,7 @@ async function messageCreateHandler(message) {
   await checkInsomniac(message, guildId, userId);
   await checkGifGifter(message, guildId, userId);
   await checkArtAficionado(message, guildId, userId);
+  await checkFinalBoss(guildId, userId);
 
 
   // UPDATE CHANNEL ACTIVITY

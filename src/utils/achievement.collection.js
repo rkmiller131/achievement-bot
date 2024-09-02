@@ -1,6 +1,16 @@
 const { EmbedBuilder } = require('discord.js');
 const { Achievement } = require('../database/schema');
 
+async function countPossibleAchievements() {
+	try {
+		const count = await Achievement.countDocuments();
+		return count;
+	} catch (error) {
+		console.error('Error counting achievements collection ', error);
+		throw error;
+	}
+}
+
 async function findAchievement(achievementName) {
 	const achievement = await Achievement.findOne({ name: achievementName });
 	if (!achievement) {
@@ -28,6 +38,7 @@ function generateAchievement(achievement) {
 }
 
 module.exports = {
+	countPossibleAchievements,
 	findAchievement,
   generateAchievement,
 }
