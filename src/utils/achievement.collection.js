@@ -22,7 +22,7 @@ function generateAchievement(achievement) {
 	.setDescription(rarity)
 	.setImage(assetURL)
 	.setTimestamp()
-	.setFooter({ text: 'See the community ranks with "/Leaderboard"' });
+	.setFooter({ text: 'See the community ranks with "/leaderboard"' });
 
   return embed;
 }

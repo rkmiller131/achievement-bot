@@ -10,7 +10,7 @@ async function interactionCreateHandler(interaction) {
     // The execute could perform any number of things!
     try {
       await command.execute(interaction);
-      console.log(`${interaction.user.username} used the command: [${interaction.commandName}]`);
+      console.log(`${interaction.user.username} used the command: "/${interaction.commandName}"`);
 
     } catch (error) {
       console.error(error);

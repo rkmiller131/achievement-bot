@@ -18,6 +18,45 @@ async function getServer(guildId) {
 
 // ---------------------------------------------------------------------------------
 
+async function getTop5Users(guildId) {
+  try {
+    const results = await Server.aggregate()
+    .match({ guildId }) // find the correct server document for this guild
+    .unwind('$users') // now instead of server being the doc and server.users being an [], each user is its own document like: users.(userId, globalName, achievments, etc.) - these are now split into an array of objects for each user
+    .project({ // https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/
+      userId: '$users.userId', // create fields you want to pass along, name them however you want
+      globalName: "$users.globalName",
+      achievements: { // you can even perform more actions on the fields, such as mapping (transforming the achievements array)
+        $map: { // https://www.mongodb.com/docs/manual/reference/operator/aggregation/map/
+          input: '$users.achievements', // map over this array
+          as: 'achievement', // and for each achievement,
+          in: {
+            points: '$$achievement.points' // create a new object with only the points field (flattens array). Double $$ is specific to the requirements of mongo map syntax
+          }
+        }
+      },
+      achievementCount: { $size: '$users.achievements' } // a new field passed onto the next pipeline fn that counts length of achievement array
+    })
+    .unwind('achievements') // unwind the projected achievements field
+    .group({ // group these accumulator objects (the keys will be what you see in the final result) - accumulator objects = fields that will be accumulated across all documents
+      _id: '$userId',
+      globalName: { $first: '$globalName' }, // using $first in the grouping stage allows you to preserve the first document meaning it doesn't accumulate that property across all documents
+      totalPoints: { $sum: '$achievements.points' },
+      achievementCount: { $first: '$achievementCount' }
+    })
+    .sort({ totalPoints: -1 })
+    .limit(5);
+
+    return results;
+
+  } catch (error) {
+    console.error('Error getting top 5 users:', error);
+    return false;
+  }
+}
+
+// ---------------------------------------------------------------------------------
+
 async function getUserDocument(guildId, userId) {
   const server = await getServer(guildId);
   const user = server.users.find((u) => u.userId === userId);
@@ -109,6 +148,7 @@ async function userHasAchievement(achievement, user, guildId) {
 
 module.exports = {
   getServer,
+  getTop5Users,
   getUserDocument,
   giveUserAchievement,
   resetReactionStreak,

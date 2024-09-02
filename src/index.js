@@ -8,7 +8,7 @@ const {
 const { clientReadyHandler } = require('./events/handlers/clientReady');
 const { interactionCreateHandler } = require('./events/handlers/interactionCreate');
 const { messageCreateHandler } = require('./events/handlers/messageCreate');
-const pingCommand = require('./commands/ping');
+const leaderboardCommand = require('./commands/leaderboard');
 
 // Event Emitter Class (discord.js is OOP)
 const client = new Client({
@@ -26,7 +26,7 @@ const client = new Client({
 // A Collection from discord.js is a JS Map (unique [commandName]: command) that
 // you can assign to the client obj. Now anywhere else in the app will have access to this collection
 client.commands = new Collection();
-client.commands.set(pingCommand.data.name, pingCommand)
+client.commands.set(leaderboardCommand.data.name, leaderboardCommand);
 
 // Using .once because this event only needs to happen upon first logging in.
 client.once(Events.ClientReady, clientReadyHandler);

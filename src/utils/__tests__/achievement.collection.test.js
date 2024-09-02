@@ -16,7 +16,7 @@ describe('Achievement Collection Utilities', () => {
     expect(embed.data.title).toBe('Social Butterfly');
     expect(embed.data.description).toBe('Rare');
     expect(embed.data.image.url).toBe('https://example.com/image.png');
-    expect(embed.data.footer.text).toBe('See the community ranks with "/Leaderboard"');
+    expect(embed.data.footer.text).toBe('See the community ranks with "/leaderboard"');
     expect(embed.data.timestamp).toBeDefined();
   });
 
