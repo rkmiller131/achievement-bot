@@ -3,6 +3,7 @@ const {
   resetReactionStreak,
   updateUserChannels,
 } = require('../../utils/server.collection');
+const findAndGiveAchievement = require('../../utils/findAndGiveAchievement');
 const checkFirstImpressions = require('../achievementChecks/firstImpressions');
 const checkSocialButterfly = require('../achievementChecks/socialButterfly');
 const checkJabberwocky = require('../achievementChecks/jabberwocky');
@@ -17,7 +18,7 @@ async function messageCreateHandler(message) {
   const guildId = message.guildId;
   const channelName = message.channel.name;
   const userId = message.author.id;
-  let { user } = await getUserDocument(guildId, userId);
+  const { user } = await getUserDocument(guildId, userId);
 
   if (!user) {
     await checkFirstImpressions(message, guildId, userId);
@@ -35,7 +36,13 @@ async function messageCreateHandler(message) {
   await checkInsomniac(message, guildId, userId);
   await checkGifGifter(message, guildId, userId);
   await checkArtAficionado(message, guildId, userId);
-  await checkFinalBoss(guildId, userId);
+  const gotFinalBoss = await checkFinalBoss(guildId, userId);
+
+  if (gotFinalBoss) { // final boss is a bit different - need reference to either message or channel to send achievement and
+    // that reference might not be present in all types of handlers (like for voice). Can refactor later if I'm wrong
+    const { user } = await getUserDocument(guildId, userId);
+    await findAndGiveAchievement('Final Boss', user, message, guildId, userId);
+  }
 
 
   // UPDATE CHANNEL ACTIVITY

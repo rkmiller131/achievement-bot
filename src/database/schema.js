@@ -50,6 +50,7 @@ const userSchema = new mongoose.Schema({
 
 const channelActivitySchema = new mongoose.Schema({
   userId: { type: String, required: true, index: true },
+  channelName: { type: String, required: true },
   month: { type: Number, required: true },
   day: { type: Number, required: true },
   year: { type: Number, required: true }

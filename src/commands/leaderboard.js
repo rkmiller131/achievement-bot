@@ -7,6 +7,9 @@ const data = new SlashCommandBuilder()
 
 async function execute(interaction) {
   await interaction.reply('Pong!');
+  // const channelNames = interaction.member.guild.channels.cache.map(channel => channel.name);
+  // console.log('Channel names:', channelNames);
+  console.log('interaction channel? ', interaction.channel) // YESS can use this .send to send a message embed to whatever channel executed the slash command!
   const top5Users = await getTop5Users(interaction.guildId);
 }
 
