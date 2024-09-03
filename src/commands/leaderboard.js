@@ -27,7 +27,7 @@ async function execute(interaction) {
     top5Users.forEach((user, index) => {
       embed.addFields({
         name: `${index + 1}. ${user.globalName}`,
-        value: `${user.achievementCount} achievements - ${user.totalPoints} Points`,
+        value: `🏆 ${user.achievementCount} achievements - ${user.totalPoints} Points`,
       })
     });
 
