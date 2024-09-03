@@ -51,7 +51,7 @@ async function getTop5Users(guildId) {
 
   } catch (error) {
     console.error('Error getting top 5 users:', error);
-    return false;
+    throw new Error('Error getting top 5 users:', error);
   }
 }
 
