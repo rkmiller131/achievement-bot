@@ -2,6 +2,8 @@ const { Server } = require('../database/schema');
 const mongoose = require('mongoose');
 const isMessageArtRelated = require('./isMessageArtRelated');
 
+// ---------------------------------------------------------------------------------
+
 async function getServer(guildId) {
   try {
     const serverExists = await Server.findOne({ guildId }).exec();
@@ -94,6 +96,18 @@ async function resetReactionStreak(guildId, userId) {
 
 // ---------------------------------------------------------------------------------
 
+async function updateReactionStreak(guildId, userId) {
+  await Server.findOneAndUpdate(
+    { 'guildId': guildId },
+    { $inc: {
+        'users.$[user].reactionStreak': 1
+    }},
+    { arrayFilters: [{ 'user.userId': userId }] }
+  );
+}
+
+// ---------------------------------------------------------------------------------
+
 async function updateUserChannels(message, guildId, userId) {
   const artRelatedChannel = isMessageArtRelated(message);
 
@@ -152,6 +166,7 @@ module.exports = {
   getUserDocument,
   giveUserAchievement,
   resetReactionStreak,
+  updateReactionStreak,
   updateUserChannels,
   userHasAchievement,
 }

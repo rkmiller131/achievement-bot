@@ -8,6 +8,7 @@ const {
 const { clientReadyHandler } = require('./events/handlers/clientReady');
 const { interactionCreateHandler } = require('./events/handlers/interactionCreate');
 const { messageCreateHandler } = require('./events/handlers/messageCreate');
+const { messageReactionHandler } = require('./events/handlers/messageReaction');
 const leaderboardCommand = require('./commands/leaderboard');
 
 // Event Emitter Class (discord.js is OOP)
@@ -19,7 +20,8 @@ const client = new Client({
   intents: [
     GatewayIntentBits.Guilds, // bare min to access server
     GatewayIntentBits.GuildMessages, // intent to receive message events
-    GatewayIntentBits.MessageContent // intent to read message content/embeds/attachments, etc.
+    GatewayIntentBits.MessageContent, // intent to read message content/embeds/attachments, etc.
+    GatewayIntentBits.GuildMessageReactions // intent to respond to emoji reactions
   ]
 });
 
@@ -32,6 +34,7 @@ client.commands.set(leaderboardCommand.data.name, leaderboardCommand);
 client.once(Events.ClientReady, clientReadyHandler);
 client.on(Events.InteractionCreate, interactionCreateHandler);
 client.on(Events.MessageCreate, messageCreateHandler);
+client.on(Events.MessageReactionAdd, messageReactionHandler);
 
 // Need to generate a discord bot token from dev portal and put in .env
 // Automatically passed in as an arg for client.login(DISCORD_TOKEN)

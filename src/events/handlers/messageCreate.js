@@ -13,13 +13,19 @@ const checkArtAficionado = require('../achievementChecks/artAficionado');
 const checkFinalBoss = require('../achievementChecks/finalBoss');
 
 async function messageCreateHandler(message) {
-  if(message.author.bot) return;
+  // type 7 is a userJoin event - don't want to give first impression achievement for an automated message generated when a user first accepts invite to server
+  if(message.author.bot || message.type === 7) return;
+
+  console.log('MESSAGE CREATE HANDLER ', message);
+
+  // welcome wagon: if the message is message.type === 19 (a reply), message.content is '', and the message.stickers collection map has a size
 
   const guildId = message.guildId;
   const channelName = message.channel.name;
   const userId = message.author.id;
   const { user } = await getUserDocument(guildId, userId);
 
+  // note - need to update the check first impressions to work well with the reaction handler - if user exists, still want to check first impression for text post.
   if (!user) {
     await checkFirstImpressions(message, guildId, userId);
   }
@@ -59,78 +65,15 @@ module.exports = {
 }
 
 /*
-message is:  <ref *1> Message {
-  channelId: '1264924870425444448',
-  guildId: '1264924870425444445',
-  id: '1270048397600231519',
-  createdTimestamp: 1722873534346,
-  type: 0,
-  system: false,
-  content: 'testing',
-  author: User {
-    id: '384151206559350784',
-    bot: false,
-    system: false,
-    flags: UserFlagsBitField { bitfield: 0 },
-    username: 'cometbloom',
-    globalName: 'R/A\\CHEL',
-    discriminator: '0',
-    avatar: '6073928e18590f0f2a96c9ea5eb2ac28',
-    banner: undefined,
-    accentColor: undefined,
-    avatarDecoration: null
-  },
-  pinned: false,
-  tts: false,
-  nonce: '1270048385235156992',
-  embeds: [],
-  components: [],
-  attachments: Collection(0) [Map] {},
-  stickers: Collection(0) [Map] {},
-  position: null,
-  roleSubscriptionData: null,
-  resolved: null,
-  editedTimestamp: null,
-  reactions: ReactionManager { message: [Circular *1] },
-  mentions: MessageMentions {
-    everyone: false,
-    users: Collection(0) [Map] {},
-    roles: Collection(0) [Map] {},
-    _members: null,
-    _channels: null,
-    _parsedUsers: null,
-    crosspostedChannels: Collection(0) [Map] {},
-    repliedUser: null
-  },
-  webhookId: null,
-  groupActivityApplication: null,
-  applicationId: null,
-  activity: null,
-  flags: MessageFlagsBitField { bitfield: 0 },
-  reference: null,
-  interaction: null,
-  poll: null
-}
-*/
-
-
-  // Put this check at the end of every event:
-  // If this user's achievment count is (count of the achievments table - 1)
-    // Give this user the Final Boss achievement
-    // Increment the user's achievment count
-
-
-
-/*
-[X] First Impressions
+[ ] Welcome Wagon
+[ ] First Impressions
 [X] Gif Gifter
 [X] Social Butterfly
 [X] Jabberwocky
 [X] Art Aficionado
 [X] Insomniac
-[ ] Final Boss
+[\] Final Boss
 
-[ ] Welcome Wagon
 [ ] Senpai Noticed
 [ ] Reaction Rockstar
 [ ] Introvert
