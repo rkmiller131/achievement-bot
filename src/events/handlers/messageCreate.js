@@ -1,4 +1,5 @@
 const {
+  createNewUser,
   getUserDocument,
   resetReactionStreak,
   updateUserChannels,
@@ -13,7 +14,8 @@ const checkArtAficionado = require('../achievementChecks/artAficionado');
 const checkFinalBoss = require('../achievementChecks/finalBoss');
 
 async function messageCreateHandler(message) {
-  // type 7 is a userJoin event - don't want to give first impression achievement for an automated message generated when a user first accepts invite to server
+  // type 7 is a userJoin event - don't want to give first impression achievement
+  // for an automated message generated when a user first accepts invite to server
   if(message.author.bot || message.type === 7) return;
 
   console.log('MESSAGE CREATE HANDLER ', message);
@@ -25,17 +27,20 @@ async function messageCreateHandler(message) {
   const userId = message.author.id;
   const { user } = await getUserDocument(guildId, userId);
 
-  // note - need to update the check first impressions to work well with the reaction handler - if user exists, still want to check first impression for text post.
   if (!user) {
-    await checkFirstImpressions(message, guildId, userId);
+    const userName = message.author.globalName;
+    await createNewUser(guildId, userId, userName);
   }
+
+  const firstAchievement = await checkFirstImpressions(message, guildId, userId);
+
+  // Update the user's participation count for this channel
+  await updateUserChannels(message, guildId, userId);
+  if (firstAchievement) return; // no need to check the rest
 
   // Set the User's reaction streak to 0
   // (if they sent a message, this breaks their Introvert achievement streak)
   await resetReactionStreak(guildId, userId);
-
-  // Update the user's participation count for this channel
-  await updateUserChannels(message, guildId, userId);
 
   await checkSocialButterfly(message, guildId, userId);
   await checkJabberwocky(message, guildId, userId);
@@ -66,7 +71,7 @@ module.exports = {
 
 /*
 [ ] Welcome Wagon
-[ ] First Impressions
+[X] First Impressions
 [X] Gif Gifter
 [X] Social Butterfly
 [X] Jabberwocky

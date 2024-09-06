@@ -4,6 +4,25 @@ const isMessageArtRelated = require('./isMessageArtRelated');
 
 // ---------------------------------------------------------------------------------
 
+async function createNewUser(guildId, userId, userName) {
+  const server = await getServer(guildId);
+  try {
+    server.users.push({
+      userId,
+      globalName: userName,
+      channelsParticipatedIn: {},
+      achievements: []
+    });
+    await server.save();
+
+  } catch (error) {
+    console.error('Error creating new user:', error);
+    throw error;
+  }
+}
+
+// ---------------------------------------------------------------------------------
+
 async function getServer(guildId) {
   try {
     const serverExists = await Server.findOne({ guildId }).exec();
@@ -161,6 +180,7 @@ async function userHasAchievement(achievement, user, guildId) {
 
 
 module.exports = {
+  createNewUser,
   getServer,
   getTop5Users,
   getUserDocument,

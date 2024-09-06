@@ -5,15 +5,20 @@ const {
 } = require('../../utils/server.collection');
 
 async function messageReactionHandler(reaction) {
+  console.log('reaction in reaction handler is ', reaction)
   if(reaction.message.author.bot) return;
 
   // this logged user is the user who reacted to this message
+  // OR what we could do instead of a loop in a loop is just take the last user (the last reaction given)
+  // make sure that the last user is not the same as the message author id (can't like your own posts)
   // reaction.message.reactions.cache.forEach((reaction) => {
   //   reaction.users.cache.forEach((user) => {
   //     console.log(user)
   //   })
   // })
 
+  // Note - make a partials plugin in index.js so that rections can be viewed for past posts? I think it would be better not to do
+  // partials and just have a disclaimer that achievement tracking won't go back in time - starts fresh upon being added to the server
 
   const guildId = reaction.message.guildId;
   const message = reaction.message; // so that we can send replies/embeds to message.channel
