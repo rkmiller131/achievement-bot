@@ -18,8 +18,6 @@ async function messageCreateHandler(message) {
   // for an automated message generated when a user first accepts invite to server
   if(message.author.bot || message.type === 7) return;
 
-  console.log('MESSAGE CREATE HANDLER ', message);
-
   // welcome wagon: if the message is message.type === 19 (a reply), message.content is '', and the message.stickers collection map has a size
 
   const guildId = message.guildId;
@@ -61,7 +59,6 @@ async function messageCreateHandler(message) {
   // a merge of the array to include new entry obj (merge rather than push)
 
   // for the future, when a new member is added: GatewayIntentBits.GuildMembers and Events.guildMemberAdd
-  // messageReactionAdd
 
 }
 
@@ -79,9 +76,9 @@ module.exports = {
 [X] Insomniac
 [\] Final Boss
 
-[ ] Senpai Noticed
-[ ] Reaction Rockstar
-[ ] Introvert
+[X] Senpai Noticed
+[X] Reaction Rockstar
+[X] Introvert
 [ ] Final Boss
 
 [ ] Oratory Overlord
