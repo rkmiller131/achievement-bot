@@ -16,9 +16,7 @@ const checkFinalBoss = require('../achievementChecks/finalBoss');
 async function messageCreateHandler(message) {
   // type 7 is a userJoin event - don't want to give first impression achievement
   // for an automated message generated when a user first accepts invite to server
-  if(message.author.bot || message.type === 7) return;
-
-  // welcome wagon: if the message is message.type === 19 (a reply), message.content is '', and the message.stickers collection map has a size
+  if(message.author.bot || message.type === 7) return; // <-also since we're not doing partials, we dont want to make a new user in our db off of just this event. (want to check at every interaction instead)
 
   const guildId = message.guildId;
   const channelName = message.channel.name;
@@ -29,6 +27,10 @@ async function messageCreateHandler(message) {
     const userName = message.author.globalName;
     await createNewUser(guildId, userId, userName);
   }
+
+
+  // welcome wagon: if the message is message.type === 19 (a reply), message.content is '', and the message.stickers collection map has a size
+  // return after a welcome wagon reply - don't want to count it as a participation in the channel other than for this achievement
 
   const firstAchievement = await checkFirstImpressions(message, guildId, userId);
 
@@ -58,7 +60,10 @@ async function messageCreateHandler(message) {
   // grab the channelId and store in server.channelActivity: server.channelActivity.channelId =
   // a merge of the array to include new entry obj (merge rather than push)
 
-  // for the future, when a new member is added: GatewayIntentBits.GuildMembers and Events.guildMemberAdd
+  // for the future: voice channel
+  // Voice state update
+  // ClientVoiceManager - manages voice connections for the client
+  // VoiceState - props like selfDeaf, selfMute, streaming, etc. and VoiceStateManager
 
 }
 
