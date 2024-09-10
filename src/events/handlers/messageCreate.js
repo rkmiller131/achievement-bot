@@ -5,6 +5,7 @@ const {
   updateUserChannels,
 } = require('../../utils/server.collection');
 const findAndGiveAchievement = require('../../utils/findAndGiveAchievement');
+const checkWelcomeWagon = require('../achievementChecks/welcomeWagon');
 const checkFirstImpressions = require('../achievementChecks/firstImpressions');
 const checkSocialButterfly = require('../achievementChecks/socialButterfly');
 const checkJabberwocky = require('../achievementChecks/jabberwocky');
@@ -28,9 +29,10 @@ async function messageCreateHandler(message) {
     await createNewUser(guildId, userId, userName);
   }
 
-
-  // welcome wagon: if the message is message.type === 19 (a reply), message.content is '', and the message.stickers collection map has a size
-  // return after a welcome wagon reply - don't want to count it as a participation in the channel other than for this achievement
+  const welcomeReply = await checkWelcomeWagon(message, guildId, userId);
+  // return after a true welcome wagon reply -
+  // don't want to count it as a participation in the channel other than for this achievement
+  if (welcomeReply) return;
 
   const firstAchievement = await checkFirstImpressions(message, guildId, userId);
 
@@ -60,11 +62,6 @@ async function messageCreateHandler(message) {
   // grab the channelId and store in server.channelActivity: server.channelActivity.channelId =
   // a merge of the array to include new entry obj (merge rather than push)
 
-  // for the future: voice channel
-  // Voice state update
-  // ClientVoiceManager - manages voice connections for the client
-  // VoiceState - props like selfDeaf, selfMute, streaming, etc. and VoiceStateManager
-
 }
 
 module.exports = {
@@ -72,14 +69,14 @@ module.exports = {
 }
 
 /*
-[ ] Welcome Wagon
+[X] Welcome Wagon
 [X] First Impressions
 [X] Gif Gifter
 [X] Social Butterfly
 [X] Jabberwocky
 [X] Art Aficionado
 [X] Insomniac
-[\] Final Boss
+[\] Final Boss <--revise after cron related achievements
 
 [X] Senpai Noticed
 [X] Reaction Rockstar
