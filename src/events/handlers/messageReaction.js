@@ -59,7 +59,6 @@ module.exports = {
 
 [ ] Oratory Overlord
 [ ] Frequent Flyer
-[ ] Final Boss
 
 [ ] Daily Diligence
 [ ] Top Contributor

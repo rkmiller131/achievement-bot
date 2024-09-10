@@ -152,6 +152,12 @@ async function updateUserChannels(message, guildId, userId) {
 
 // ---------------------------------------------------------------------------------
 
+async function updateUserVoiceState(guildId, userId, joinTimestamp, leaveTimestamp) {
+
+}
+
+// ---------------------------------------------------------------------------------
+
 async function userHasAchievement(achievement, user, guildId) {
   try {
     const result = await Server.aggregate()
@@ -188,5 +194,6 @@ module.exports = {
   resetReactionStreak,
   updateReactionStreak,
   updateUserChannels,
+  updateUserVoiceState,
   userHasAchievement,
 }

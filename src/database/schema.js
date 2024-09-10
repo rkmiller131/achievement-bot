@@ -25,6 +25,12 @@ const userAchievementSchema = new mongoose.Schema({
   }
 });
 
+const voiceSchema = new mongoose.Schema({
+  joinEvents: { type: Number, default: 0 },
+  joinDuration: { type: Number, default: 0}, // time in seconds (10 hours = 36000 sec)
+  lastJoinTimestamp: { type: Date }
+});
+
 const userSchema = new mongoose.Schema({
   userId: {
     type: String, // the Id from Discord
@@ -35,7 +41,7 @@ const userSchema = new mongoose.Schema({
   globalName: { type: String, required: true },
   channelsParticipatedIn: {
     type: Map,
-    of: Number // storing [channelIdNumber]: participationCount
+    of: Number // storing [channelName]: participationCount
   },
   reactionStreak: {
     type: Number,
@@ -45,6 +51,11 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  wavesGiven: {
+    type: Number,
+    default: 0
+  },
+  voiceState: voiceSchema,
   achievements: [userAchievementSchema]
 });
 
@@ -65,7 +76,7 @@ const serverSchema = new mongoose.Schema({
   users: [userSchema],
   channelActivity: {
     type: Map,
-    of: [channelActivitySchema] // storing [channelIdNumber]: channelActivitySchema
+    of: [channelActivitySchema] // storing [channelName]: channelActivitySchema
   }
 });
 
