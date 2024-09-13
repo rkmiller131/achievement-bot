@@ -27,7 +27,7 @@ const userAchievementSchema = new mongoose.Schema({
 
 const voiceSchema = new mongoose.Schema({
   joinEvents: { type: Number, default: 0 },
-  joinDuration: { type: Number, default: 0}, // time in seconds (10 hours = 36000 sec)
+  joinDuration: { type: Number, default: 0}, // time in seconds (100 hours = 360000 sec)
   lastJoinTimestamp: { type: Date }
 });
 

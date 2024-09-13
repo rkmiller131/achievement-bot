@@ -153,7 +153,49 @@ async function updateUserChannels(message, guildId, userId) {
 // ---------------------------------------------------------------------------------
 
 async function updateUserVoiceState(guildId, userId, joinTimestamp, leaveTimestamp) {
+  if (joinTimestamp && !leaveTimestamp) {
+    // update user voice join event (increment join events, update lastjoin timestamp)
+    try {
+      await Server.findOneAndUpdate(
+        { 'guildId': guildId },
+        {
+          $inc: { 'users.$[user].voiceState.joinEvents': 1 },
+          $set: { 'users.$[user].voiceState.lastJoinTimestamp': joinTimestamp }
+        },
+        { arrayFilters: [{ 'user.userId': userId }], upsert: true }
+      );
+      console.log(`Updated join event and last join timestamp for user ${userId} in guild ${guildId}`);
+    } catch (error) {
+      console.error('Error updating voice state join event:', error);
+    }
+  }
 
+  if (leaveTimestamp) {
+    // using the user's lastJoinTimestamp calc the difference in leaveTimestamp param divided by 1000
+    // and increment join duration for seconds.
+    try {
+      await Server.findOneAndUpdate(
+        { 'guildId': guildId },
+        {
+          $add: [
+            'users.$[user].voiceState.joinDuration',
+            {$divide: [
+              {
+                $floor: {
+                  $subtract: [leaveTimestamp, 'users.$[user].voiceState.lastJoinTimestamp']
+                }
+              },
+              1000
+            ]}
+          ]
+        },
+        { arrayFilters: [{ 'user.userId': userId }], upsert: true }
+      )
+
+    } catch (error) {
+      console.error('Error updating user voice state:', error);
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------------

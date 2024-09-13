@@ -4,7 +4,7 @@
     "description": "Make your first post or contribution",
     "points": 10,
     "rarity": "Common",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318552/helloWorld_loxia2.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1725982224/firstImpressions_gktd4t.png"
   },
   {
     "name": "Welcome Wagon",
@@ -64,10 +64,10 @@
   },
   {
     "name": "Art Aficionado",
-    "description": "Share 10 original artworks in #art",
+    "description": "Share 10 attachments in #art channels",
     "points": 35,
     "rarity": "Epic",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723921262/artAficionado_cw0gzr.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1725982626/artAficionado_zwpl32.png"
   },
   {
     "name": "Top Contributor",
@@ -92,7 +92,7 @@
   },
   {
     "name": "Oratory Overlord",
-    "description": "Spend 10 hours talking in voice channels",
+    "description": "Spend 100 hours talking in voice channels",
     "points": 50,
     "rarity": "Legendary",
     "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723924792/oratoryOverlord_enwpyx.png"
