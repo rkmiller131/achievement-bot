@@ -38,12 +38,10 @@
 <h3>👉🏻 Want to see them all?</h3>
 <details>
   <summary>Spoiler! 👀</summary>
-  <img src="https://github.com/user-attachments/assets/226ec3d5-b61c-4ed6-a6d4-f27405ad5434" alt="achievmentsP1" style="width: 650px;"/>
-  <img src="https://github.com/user-attachments/assets/a9ed7b3c-d1b2-4db5-87e2-ea3092a72a6e" alt="achievmentsP2" style="width: 650px;"/>
+  <img src="https://github.com/user-attachments/assets/7b398328-5392-4cd1-b10c-5ad96b3517f3" alt="achievmentsP1" style="width: 650px;"/>
+  <img src="https://github.com/user-attachments/assets/a20120e8-a93e-4173-a9b6-ccdc17aef32c" alt="achievmentsP2" style="width: 650px;"/>
 </details>
 <h3>👉🏻 Earn Points and Rank on the Server Leaderboard</h3>
-
-![leaderboardGIF](https://github.com/user-attachments/assets/9baf1556-38f7-4428-8db4-0f04b839fc43)
 
 ## How to Use
 ### ➕ Adding the bot to your server
