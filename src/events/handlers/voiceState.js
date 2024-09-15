@@ -3,6 +3,8 @@ const {
   getUserDocument,
   updateUserVoiceState
 } = require('../../utils/server.collection');
+const checkOratoryOverlord = require('../achievementChecks/oratoryOverlord');
+const checkFrequentFlyer = require('../achievementChecks/frequentFlyer');
 
 async function voiceStateHandler(oldState, newState) {
   const guildId = newState.guild.id;
@@ -24,6 +26,8 @@ async function voiceStateHandler(oldState, newState) {
     // update user voice join event (increment join events, update lastjoin timestamp)
     await updateUserVoiceState(guildId, userId, joinTimestamp, null);
     // check for achievements here and only send achievement embeds in newChannel
+    await checkOratoryOverlord(newChannel, guildId, userId);
+    await checkFrequentFlyer(newChannel, guildId, userId);
 
     // if new channel is null and oldChannel is not null, we have a leave event by the user.
   } else if (leaveEvent) {
@@ -39,8 +43,8 @@ module.exports = {
 }
 
 /*
-[ ] Oratory Overlord
-[ ] Frequent Flyer
+[X] Oratory Overlord
+[X] Frequent Flyer
 
 [ ] Daily Diligence
 [ ] Top Contributor

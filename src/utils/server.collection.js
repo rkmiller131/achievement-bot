@@ -174,7 +174,7 @@ async function updateUserVoiceState(guildId, userId, joinTimestamp, leaveTimesta
     // using the user's lastJoinTimestamp calc the difference in leaveTimestamp argument divided by 1000
     // and increment join duration (which will now be in seconds).
     const { user, server } = await getUserDocument(guildId, userId);
-    if (user.voiceState.joinDuration > 36) return; // Don't keep tracking if achievment already given
+    if (user.voiceState.joinDuration > 360000) return; // Don't keep tracking if achievment already given
 
     const lastJoinTimestamp = user.voiceState.lastJoinTimestamp;
     if (!lastJoinTimestamp) return;
