@@ -4,104 +4,104 @@
     "description": "Make your first post or contribution",
     "points": 10,
     "rarity": "Common",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1725982224/firstImpressions_gktd4t.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726428183/firstImpressions_zcx7oh.png"
   },
   {
     "name": "Welcome Wagon",
     "description": "Greet and wave to 10 new members",
     "points": 15,
     "rarity": "Common",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723917800/welcomeWagonRevised_jusmea.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726428217/welcomeWagonRevised_cghiqn.png"
   },
   {
     "name": "Senpai Noticed",
     "description": "Get 10 reactions on a single post",
     "points": 20,
     "rarity": "Common",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318603/senpaiNoticed_orvcl0.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726428242/senpaiNoticed_awb5rr.png"
   },
   {
     "name": "GIF Gifter",
     "description": "Share 20 GIFs across the server",
     "points": 20,
     "rarity": "Common",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723919043/gifGifterRevised_xkndug.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726428269/gifGifterRevised_s1bnsj.png"
   },
   {
     "name": "Social Butterfly",
     "description": "Participate in 5 different text channels",
     "points": 25,
     "rarity": "Rare",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318622/socialButterfly_rhrjvi.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429309/socialButterfly_lydozl.png"
   },
   {
     "name": "Reaction Rockstar",
     "description": "Get 25 reactions on a single post",
     "points": 30,
     "rarity": "Rare",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318718/reactionRockstar_jrfo1z.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429333/reactionRockstar_rzyos3.png"
   },
   {
     "name": "Frequent Flyer",
     "description": "Join and leave voice channels 100 times",
     "points": 30,
     "rarity": "Rare",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723318596/frequentFlyer_cwnjp5.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429359/frequentFlyer_lvkx4f.png"
   },
   {
     "name": "Jabberwocky",
     "description": "Send 100 messages in a single text channel",
     "points": 30,
     "rarity": "Rare",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723918784/jabberwockyRevised_nfamf1.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429401/jabberwockyRevised_coduue.png"
   },
   {
     "name": "Introvert",
     "description": "React to 10 messages in a row without posting one yourself",
     "points": 30,
     "rarity": "Rare",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723831650/introvert_cmpu5c.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429428/introvert_xb3ank.png"
   },
   {
     "name": "Art Aficionado",
     "description": "Share 10 attachments in #art channels",
     "points": 35,
     "rarity": "Epic",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1725982626/artAficionado_zwpl32.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429476/artAficionado_kkytmu.png"
   },
   {
     "name": "Top Contributor",
     "description": "Send the most messages in a month",
     "points": 40,
     "rarity": "Epic",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723922037/topContributor_hkh2nm.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429632/topContributor_uzxuvh.png"
   },
   {
     "name": "Daily Diligence",
     "description": "Post every weekday for a month straight",
     "points": 40,
     "rarity": "Epic",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723922520/dailyDiligence_rtc4ge.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429597/dailyDiligence_rxk6el.png"
   },
   {
     "name": "Insomniac",
     "description": "Post between 2AM and 4AM local time",
     "points": 50,
     "rarity": "Legendary",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723922897/insomniacRevised_co4uak.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429518/insomniacRevised_moy7tk.png"
   },
   {
     "name": "Oratory Overlord",
     "description": "Spend 100 hours talking in voice channels",
     "points": 50,
     "rarity": "Legendary",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723924792/oratoryOverlord_enwpyx.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429545/oratoryOverlord_emqzmk.png"
   },
   {
     "name": "Final Boss",
     "description": "Obtain all possible achievements",
     "points": 100,
     "rarity": "Legendary",
-    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1723924254/finalBoss_l7bwiy.png"
+    "assetURL": "https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429571/finalBoss_qhbi7o.png"
   }
 ]

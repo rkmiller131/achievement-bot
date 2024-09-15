@@ -11,7 +11,8 @@ async function createNewUser(guildId, userId, userName) {
       userId,
       globalName: userName,
       channelsParticipatedIn: {},
-      achievements: []
+      achievements: [],
+      voiceState: {}
     });
     await server.save();
 
@@ -164,36 +165,35 @@ async function updateUserVoiceState(guildId, userId, joinTimestamp, leaveTimesta
         },
         { arrayFilters: [{ 'user.userId': userId }], upsert: true }
       );
-      console.log(`Updated join event and last join timestamp for user ${userId} in guild ${guildId}`);
     } catch (error) {
       console.error('Error updating voice state join event:', error);
     }
   }
 
   if (leaveTimestamp) {
-    // using the user's lastJoinTimestamp calc the difference in leaveTimestamp param divided by 1000
-    // and increment join duration for seconds.
+    // using the user's lastJoinTimestamp calc the difference in leaveTimestamp argument divided by 1000
+    // and increment join duration (which will now be in seconds).
+    const { user, server } = await getUserDocument(guildId, userId);
+    if (user.voiceState.joinDuration > 36) return; // Don't keep tracking if achievment already given
+
+    const lastJoinTimestamp = user.voiceState.lastJoinTimestamp;
+    if (!lastJoinTimestamp) return;
+
+    const maxSafeIntValue = 2147483647; // just in case something crazy happens, don't store more than int val
+    const newDuration = Math.min(
+      (Math.floor(
+        (Math.abs(leaveTimestamp - lastJoinTimestamp)) / 1000 // < to get duration in seconds
+      )),
+      maxSafeIntValue
+    )
     try {
       await Server.findOneAndUpdate(
         { 'guildId': guildId },
-        {
-          $add: [
-            'users.$[user].voiceState.joinDuration',
-            {$divide: [
-              {
-                $floor: {
-                  $subtract: [leaveTimestamp, 'users.$[user].voiceState.lastJoinTimestamp']
-                }
-              },
-              1000
-            ]}
-          ]
-        },
+        { $inc: { 'users.$[user].voiceState.joinDuration': newDuration } },
         { arrayFilters: [{ 'user.userId': userId }], upsert: true }
       )
-
     } catch (error) {
-      console.error('Error updating user voice state:', error);
+      console.error('Error updating user voice state leave event:', error);
     }
   }
 }
