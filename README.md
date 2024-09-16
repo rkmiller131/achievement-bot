@@ -43,6 +43,8 @@
 </details>
 <h3>👉🏻 Earn Points and Rank on the Server Leaderboard</h3>
 
+![leaderboardGIF](https://github.com/user-attachments/assets/4946b815-8b1d-4934-8f51-a5ea1a99061a)
+
 ## How to Use
 ### ➕ Adding the bot to your server
 To add the bot to your server, send an invite...(TODO: link when bot is complete and ready for public access)
