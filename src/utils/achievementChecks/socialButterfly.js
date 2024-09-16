@@ -1,6 +1,6 @@
-const findAndGiveAchievement = require('../../utils/findAndGiveAchievement');
-const { getUserDocument } = require('../../utils/server.collection');
-const { REGEX_ART, ART_WORDS } = require('../../utils/constants');
+const findAndGiveAchievement = require('../findAndGiveAchievement');
+const { getUserDocument } = require('../collections/server.collection');
+const { REGEX_ART, ART_WORDS } = require('../constants');
 
 module.exports = async function checkSocialButterfly(message, guildId, userId) {
   const { user } = await getUserDocument(guildId, userId);

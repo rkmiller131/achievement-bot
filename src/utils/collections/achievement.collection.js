@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const { Achievement } = require('../database/schema');
+const { Achievement } = require('../../database/schema');
 
 async function countPossibleAchievements() {
 	try {

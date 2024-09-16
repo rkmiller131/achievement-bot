@@ -1,6 +1,6 @@
-const isTimestampInWindow = require('../../utils/isTimestampInWindow');
-const findAndGiveAchievement = require('../../utils/findAndGiveAchievement');
-const { getUserDocument } = require('../../utils/server.collection');
+const isTimestampInWindow = require('../isTimestampInWindow');
+const findAndGiveAchievement = require('../findAndGiveAchievement');
+const { getUserDocument } = require('../collections/server.collection');
 
 module.exports = async function checkInsomniac(message, guildId, userId) {
   const isAnInsomniac = isTimestampInWindow(message.createdTimestamp, 2, 4);

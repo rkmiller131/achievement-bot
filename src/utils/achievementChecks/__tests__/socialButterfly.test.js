@@ -3,12 +3,12 @@ const {
   getUserDocument,
   userHasAchievement,
   giveUserAchievement
-} = require('../../../utils/server.collection');
+} = require('../../collections/server.collection');
 const { Achievement } = require('../../../database/schema');
 const checkSocialButterfly = require('../socialButterfly');
 
 jest.mock('../../../database/schema');
-jest.mock('../../../utils/server.collection', () => ({
+jest.mock('../../collections/server.collection', () => ({
   getServer: jest.fn(),
   getUserDocument: jest.fn(),
   userHasAchievement: jest.fn(),

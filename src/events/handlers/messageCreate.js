@@ -3,16 +3,18 @@ const {
   getUserDocument,
   resetReactionStreak,
   updateUserChannels,
-} = require('../../utils/server.collection');
+} = require('../../utils/collections/server.collection');
 const findAndGiveAchievement = require('../../utils/findAndGiveAchievement');
-const checkWelcomeWagon = require('../achievementChecks/welcomeWagon');
-const checkFirstImpressions = require('../achievementChecks/firstImpressions');
-const checkSocialButterfly = require('../achievementChecks/socialButterfly');
-const checkJabberwocky = require('../achievementChecks/jabberwocky');
-const checkInsomniac = require('../achievementChecks/insomniac');
-const checkGifGifter = require('../achievementChecks/gifGifter');
-const checkArtAficionado = require('../achievementChecks/artAficionado');
-const checkFinalBoss = require('../achievementChecks/finalBoss');
+const {
+  checkWelcomeWagon,
+  checkFirstImpressions,
+  checkSocialButterfly,
+  checkJabberwocky,
+  checkInsomniac,
+  checkGifGifter,
+  checkArtAficionado,
+  checkFinalBoss
+} = require('../../utils/achievementChecks');
 
 async function messageCreateHandler(message) {
   // type 7 is a userJoin event - don't want to give first impression achievement

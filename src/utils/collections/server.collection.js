@@ -1,6 +1,6 @@
-const { Server } = require('../database/schema');
+const { Server } = require('../../database/schema');
 const mongoose = require('mongoose');
-const isMessageArtRelated = require('./isMessageArtRelated');
+const isMessageArtRelated = require('../isMessageArtRelated');
 
 // ---------------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ async function getTop5Users(guildId) {
     .unwind('$users') // now instead of server being the doc and server.users being an [], each user is its own document like: users.(userId, globalName, achievments, etc.) - these are now split into an array of objects for each user
     .project({ // https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/
       userId: '$users.userId', // create fields you want to pass along, name them however you want
-      globalName: "$users.globalName",
+      globalName: '$users.globalName',
       achievements: { // you can even perform more actions on the fields, such as mapping (transforming the achievements array)
         $map: { // https://www.mongodb.com/docs/manual/reference/operator/aggregation/map/
           input: '$users.achievements', // map over this array
@@ -97,7 +97,7 @@ async function giveUserAchievement(achievementRef, guildId, userId) {
       { arrayFilters: [{ 'user.userId': userId }]}
     );
   } catch (error) {
-    console.error(`Achievement failed to push into user achievements`);
+    console.error('Achievement failed to push into user achievements');
     throw error;
   }
 }
@@ -173,7 +173,7 @@ async function updateUserVoiceState(guildId, userId, joinTimestamp, leaveTimesta
   if (leaveTimestamp) {
     // using the user's lastJoinTimestamp calc the difference in leaveTimestamp argument divided by 1000
     // and increment join duration (which will now be in seconds).
-    const { user, server } = await getUserDocument(guildId, userId);
+    const { user } = await getUserDocument(guildId, userId);
     if (user.voiceState.joinDuration > 360000) return; // Don't keep tracking if achievment already given
 
     const lastJoinTimestamp = user.voiceState.lastJoinTimestamp;

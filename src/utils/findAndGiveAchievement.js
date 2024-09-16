@@ -1,6 +1,6 @@
 const { MENTION_STRING } = require('./constants');
-const { generateAchievement, findAchievement } = require('./achievement.collection');
-const { giveUserAchievement, userHasAchievement } = require('./server.collection');
+const { generateAchievement, findAchievement } = require('./collections/achievement.collection');
+const { giveUserAchievement, userHasAchievement } = require('./collections/server.collection');
 
 module.exports = async function findAndGiveAchievement(achievementName, user, message, guildId, userId) {
   try {

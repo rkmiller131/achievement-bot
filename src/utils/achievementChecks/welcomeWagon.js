@@ -1,5 +1,5 @@
-const { getUserDocument } = require('../../utils/server.collection');
-const findAndGiveAchievement = require('../../utils/findAndGiveAchievement');
+const { getUserDocument } = require('../collections/server.collection');
+const findAndGiveAchievement = require('../findAndGiveAchievement');
 
 async function checkWelcomeWagon(message, guildId, userId) {
   const messageIsReply = message.type === 19;

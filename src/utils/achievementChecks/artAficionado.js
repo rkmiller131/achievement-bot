@@ -1,6 +1,6 @@
-const findAndGiveAchievement = require('../../utils/findAndGiveAchievement');
-const isMessageArtRelated = require('../../utils/isMessageArtRelated');
-const { getUserDocument, updateUserChannels } = require('../../utils/server.collection');
+const findAndGiveAchievement = require('../findAndGiveAchievement');
+const isMessageArtRelated = require('../isMessageArtRelated');
+const { getUserDocument } = require('../collections/server.collection');
 
 module.exports = async function checkArtAficionado(message, guildId, userId) {
   const artRelatedChannel = isMessageArtRelated(message);

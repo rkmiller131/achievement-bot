@@ -2,7 +2,7 @@ const {
   SlashCommandBuilder,
   EmbedBuilder
 } = require('discord.js');
-const { getTop5Users } = require('../utils/server.collection');
+const { getTop5Users } = require('../utils/collections/server.collection');
 
 const data = new SlashCommandBuilder()
   .setName('leaderboard')

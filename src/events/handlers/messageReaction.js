@@ -1,12 +1,11 @@
 const {
   createNewUser,
   getUserDocument,
-  getServer,
   updateReactionStreak
-} = require('../../utils/server.collection');
+} = require('../../utils/collections/server.collection');
 const getTotalMessageReactions = require('../../utils/getTotalMessageReactions');
 const findAndGiveAchievement = require('../../utils/findAndGiveAchievement');
-const checkIntrovert = require('../achievementChecks/introvert');
+const { checkIntrovert } = require('../../utils/achievementChecks');
 
 async function messageReactionHandler(reaction) {
   if(reaction.message.author.bot) return;

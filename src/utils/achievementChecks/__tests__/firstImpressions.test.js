@@ -1,10 +1,10 @@
 const checkFirstImpressions = require('../firstImpressions');
 const { Achievement } = require('../../../database/schema');
-const { generateAchievement } = require('../../../utils/achievement.collection');
-const { getServer } = require('../../../utils/server.collection');
+const { generateAchievement } = require('../../collections/achievement.collection');
+const { getServer } = require('../../collections/server.collection');
 
 jest.mock('../../../database/schema');
-jest.mock('../../../utils/server.collection', () => ({
+jest.mock('../../collections/server.collection', () => ({
   getServer: jest.fn(),
 }));
 

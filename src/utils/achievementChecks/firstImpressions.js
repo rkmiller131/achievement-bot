@@ -1,6 +1,5 @@
-const { MENTION_STRING } = require('../../utils/constants');
-const { getUserDocument } = require('../../utils/server.collection');
-const findAndGiveAchievement = require('../../utils/findAndGiveAchievement');
+const { getUserDocument } = require('../collections/server.collection');
+const findAndGiveAchievement = require('../findAndGiveAchievement');
 
 module.exports = async function checkFirstImpressions(message, guildId, userId) {
   const { user } = await getUserDocument(guildId, userId);

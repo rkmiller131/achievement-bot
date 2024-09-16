@@ -2,9 +2,11 @@ const {
   createNewUser,
   getUserDocument,
   updateUserVoiceState
-} = require('../../utils/server.collection');
-const checkOratoryOverlord = require('../achievementChecks/oratoryOverlord');
-const checkFrequentFlyer = require('../achievementChecks/frequentFlyer');
+} = require('../../utils/collections/server.collection');
+const {
+  checkOratoryOverlord,
+  checkFrequentFlyer
+} = require('../../utils/achievementChecks');
 
 async function voiceStateHandler(oldState, newState) {
   const guildId = newState.guild.id;

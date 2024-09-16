@@ -1,5 +1,5 @@
-const findAndGiveAchievement = require('../../utils/findAndGiveAchievement');
-const { getUserDocument } = require('../../utils/server.collection');
+const findAndGiveAchievement = require('../findAndGiveAchievement');
+const { getUserDocument } = require('../collections/server.collection');
 
 module.exports = async function checkJabberwocky(message, guildId, userId) {
   const channelName = message.channel.name;

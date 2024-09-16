@@ -1,5 +1,5 @@
-const { getUserDocument } = require('../../utils/server.collection');
-const { countPossibleAchievements } = require('../../utils/achievement.collection');
+const { getUserDocument } = require('../collections/server.collection');
+const { countPossibleAchievements } = require('../collections/achievement.collection');
 
 module.exports = async function checkFinalBoss(guildId, userId) {
   const { user } = await getUserDocument(guildId, userId);
