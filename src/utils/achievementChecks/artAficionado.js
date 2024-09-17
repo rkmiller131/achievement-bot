@@ -4,7 +4,7 @@ const { getUserDocument } = require('../collections/server.collection');
 
 module.exports = async function checkArtAficionado(message, guildId, userId) {
   const artRelatedChannel = isMessageArtRelated(message);
-  if (artRelatedChannel !== true) return; // channel is art related AND has an attachement if true
+  if (artRelatedChannel !== true) return; // channel is art related AND has an attachment if true
 
   const { user } = await getUserDocument(guildId, userId);
   const channelName = message.channel.name;
