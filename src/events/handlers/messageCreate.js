@@ -85,8 +85,8 @@ module.exports = {
 [X] Introvert
 [ ] Final Boss
 
-[ ] Oratory Overlord
-[ ] Frequent Flyer
+[X] Oratory Overlord
+[X] Frequent Flyer
 
 [ ] Daily Diligence
 [ ] Top Contributor
