@@ -1,10 +1,4 @@
 /*
-On the first of every month,
- Get the current month from new Date().getMonth() -> it's 0 indexed, remember. So Sept would be 8.
- Get the current year from new Date().getFullYear()
- For the edge case: if current month = 0, then past month = 11 and past year = currentYear -1
- Otherwise, past month = current month -1 and pastYear = current year.
-
  Then search the database for channelActivity on the Server model.
  Filter for all activity with the correct pastMonth and pastYear
  Sort by userId while summing their occurences (counting posts)
@@ -128,10 +122,24 @@ After each achievement check for a user, do a final boss check too and save ref 
 [ ] Final Boss
 */
 
+const cron = require('node-cron');
 const getPast2MonthsAndYears = require('../../utils/getPast2MonthsAndYears');
 
 async function monthlyCron(client) {
   // console.log('client is ', client);
+
+  // minute, hour, day of month, month, day of week
+  //  0-59   0-23      1-31      1-12     0-7 0 or 7 are Sun
+  // On the first of every month, '0 0 1 1-12 *'
+  cron.schedule('34 7 * * *', () => {
+    console.log('Running a job at 12:00AM on the first of every month');
+    // get the past 2 months worth of entries
+    const { prevMonth, prevYear, deleteMonth, deleteYear } = getPast2MonthsAndYears();
+  }, {
+    timezone: 'America/Los_Angeles'
+  });
+
+
   const { prevMonth, prevYear, deleteMonth, deleteYear } = getPast2MonthsAndYears();
 
 }
