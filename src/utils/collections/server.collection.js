@@ -104,6 +104,33 @@ async function giveUserAchievement(achievementRef, guildId, userId) {
 
 // ---------------------------------------------------------------------------------
 
+async function logChannelActivity(message, guildId, userId) {
+  const channelName = message.channel.name;
+  const channelId = message.channel.id;
+
+  const today = new Date();
+  const logEntry = {
+    userId,
+    channelId,
+    month: today.getMonth(),
+    day: today.getDay(), // 0 - 6 Sun - Sat
+    year: today.getFullYear()
+  }
+
+  const server = await getServer(guildId);
+  try {
+    server.channelActivity.push(logEntry);
+    await server.save();
+
+  } catch (error) {
+    console.error('Error logging text channel activity:', error);
+    throw new Error('Error logging text channel activity:', error);
+  }
+
+}
+
+// ---------------------------------------------------------------------------------
+
 async function resetReactionStreak(guildId, userId) {
   await Server.findOneAndUpdate(
     { 'guildId': guildId },
@@ -233,6 +260,7 @@ module.exports = {
   getTop5Users,
   getUserDocument,
   giveUserAchievement,
+  logChannelActivity,
   resetReactionStreak,
   updateReactionStreak,
   updateUserChannels,

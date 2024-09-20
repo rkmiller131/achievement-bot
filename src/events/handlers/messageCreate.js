@@ -1,6 +1,7 @@
 const {
   createNewUser,
   getUserDocument,
+  logChannelActivity,
   resetReactionStreak,
   updateUserChannels,
 } = require('../../utils/collections/server.collection');
@@ -59,11 +60,7 @@ async function messageCreateHandler(message) {
     await findAndGiveAchievement('Final Boss', user, message, guildId, userId);
   }
 
-
-  // UPDATE CHANNEL ACTIVITY
-  // grab the channelId and store in server.channelActivity: server.channelActivity.channelId =
-  // a merge of the array to include new entry obj (merge rather than push)
-
+  await logChannelActivity(message, guildId, userId);
 }
 
 module.exports = {

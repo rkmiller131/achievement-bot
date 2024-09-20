@@ -73,11 +73,8 @@ const serverSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  users: [userSchema],
-  channelActivity: {
-    type: Map,
-    of: [channelActivitySchema] // storing [channelName]: channelActivitySchema
-  }
+  users: {type: [userSchema], default: []},
+  channelActivity: { type: [channelActivitySchema], default: [] }
 });
 
 const Server = mongoose.model('Servers', serverSchema);
