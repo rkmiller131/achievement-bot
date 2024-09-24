@@ -2,7 +2,7 @@ const { MENTION_STRING } = require('./constants');
 const { generateAchievement, findAchievement } = require('./collections/achievement.collection');
 const { giveUserAchievement, userHasAchievement } = require('./collections/server.collection');
 
-module.exports = async function findAndGiveAchievement(achievementName, user, message, guildId, userId) {
+module.exports = async function findAndGiveAchievement(achievementName, user, message, guildId, userId, customMention) {
   try {
     const achievement = await findAchievement(achievementName);
     const userAlreadyHas = await userHasAchievement(achievement, user, guildId);
@@ -16,7 +16,7 @@ module.exports = async function findAndGiveAchievement(achievementName, user, me
     }
 
     await giveUserAchievement(achievementRef, guildId, userId);
-    message.channel.send({ embeds: [achievementEmbed], content: MENTION_STRING(userId) });
+    message.channel.send({ embeds: [achievementEmbed], content: customMention ? customMention(userId) : MENTION_STRING(userId) });
 
   } catch (error) {
     console.error(`Error in saving "${achievementName}" achievement for this user: `, error);

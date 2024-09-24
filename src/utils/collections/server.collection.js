@@ -143,6 +143,34 @@ async function resetReactionStreak(guildId, userId) {
 
 // ---------------------------------------------------------------------------------
 
+async function sumChannelActivityByUser(guildId, prevMonth, prevYear) {
+  const result = await Server.aggregate()
+    .match({ guildId })
+    .unwind('$channelActivity')
+    .match({
+      'channelActivity.month': prevMonth + 1, // TODO - remove the +1
+      'channelActivity.year': prevYear
+    })
+    .group({
+      _id: '$channelActivity.userId',
+      count: { $sum: 1 }
+    })
+    .addFields({
+      month: prevMonth
+    })
+    .sort({ count: -1 })
+
+  return result[0];
+}
+
+// ---------------------------------------------------------------------------------
+
+async function sumWeekdayActivityByUser(prevMonth, prevYear) {
+
+}
+
+// ---------------------------------------------------------------------------------
+
 async function updateReactionStreak(guildId, userId) {
   await Server.findOneAndUpdate(
     { 'guildId': guildId },
@@ -263,6 +291,8 @@ module.exports = {
   logChannelActivity,
   resetReactionStreak,
   updateReactionStreak,
+  sumChannelActivityByUser,
+  sumWeekdayActivityByUser,
   updateUserChannels,
   updateUserVoiceState,
   userHasAchievement,

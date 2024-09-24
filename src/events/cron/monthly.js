@@ -1,24 +1,4 @@
 /*
- Then search the database for channelActivity on the Server model.
- Filter for all activity with the correct pastMonth and pastYear
- Sort by userId while summing their occurences (counting posts)
- return the aggregation's first result ? OR get the first result, check if user has the
- achievement for top contributor already. If they don't give. If they do, try for the second one, recursively,
- until we find someone who was a top? Or should we just not hand out achivements every month? It should truly be top.
-  const result = await Server.aggregate()
-    .match({ guildId })
-    .unwind('$channelActivity')
-    .match({
-      month: pastMonth,
-      year: pastYear
-    })
-    .group({
-      _id: userId,
-      count: { $sum: 1 }
-    })
-    .sort({ count: -1 })
-
-  result[0] ?
 
  Daily diligence:
 
@@ -62,26 +42,6 @@
 
   async function removeOldMonths(guildId, currentMonth, currentYear) {
   try {
-    const deleteMonth = (() => {
-      if (currentMonth <= 2) {
-        return 10;
-      } else if (currentMonth <= 7) {
-        return currentMonth - 2;
-      } else {
-        return currentMonth - 2;
-      }
-    })();
-
-    const deleteYear = currentMonth <= 2 ? currentYear - 1 : currentYear;
-
-    const filter = {
-      guildId,
-      'channelActivity': {
-        $exists: true,
-        $type: 'object'
-      }
-    };
-
     const update = {
       $set: {
         channelActivity: {
@@ -98,7 +58,7 @@
       }
     };
 
-    await Server.updateMany(filter, update);
+    await Server.updateMany({guildId}, update);
 
     console.log(`Successfully removed old months for guild ${guildId}`);
   } catch (error) {
@@ -124,14 +84,13 @@ After each achievement check for a user, do a final boss check too and save ref 
 
 const cron = require('node-cron');
 const getPast2MonthsAndYears = require('../../utils/getPast2MonthsAndYears');
+const checkTopContributor = require('../../utils/achievementChecks/topContributor');
 
-async function monthlyCron(client) {
-  // console.log('client is ', client);
-
+async function monthlyCron(message, guildId) {
   // minute, hour, day of month, month, day of week
   //  0-59   0-23      1-31      1-12     0-7 0 or 7 are Sun
   // On the first of every month, '0 0 1 1-12 *'
-  cron.schedule('34 7 * * *', () => {
+  cron.schedule('* 7 * * *', async () => {
     console.log('Running a job at 12:00AM on the first of every month');
     // get the past 2 months worth of entries
     const { prevMonth, prevYear, deleteMonth, deleteYear } = getPast2MonthsAndYears();
@@ -139,8 +98,21 @@ async function monthlyCron(client) {
     timezone: 'America/Los_Angeles'
   });
 
+  // Make sure the message channel we got is a public one (everyone can see it)
+  // NOTE - this currently doesn't work, only checks role based permissions not selected members who can see channel.
+  // const everyone = message.channel.guild.roles.everyone;
+  // const channelPermissions = message.channel.permissionsFor(everyone); // bitflag
+  const channelPermissions = message.channel.permissionsFor(guildId); // bitflag
+  const hasViewPermissions = (bitfield) => {
+    return (BigInt(bitfield) & BigInt(0x400)) !== 0;
+  }
+  // console.log(hasViewPermissions(channelPermissions));
+  // CHANNEL TYPE IS NO GOOD
+  // we could see if we could get access to the client again and see if we can send to the channel the user has posted in before
 
   const { prevMonth, prevYear, deleteMonth, deleteYear } = getPast2MonthsAndYears();
+  await checkTopContributor(message, guildId, prevMonth, prevYear);
+  return true;
 
 }
 

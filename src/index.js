@@ -11,7 +11,6 @@ const { messageCreateHandler } = require('./events/handlers/messageCreate');
 const { messageReactionHandler } = require('./events/handlers/messageReaction');
 const { voiceStateHandler } = require('./events/handlers/voiceState');
 const leaderboardCommand = require('./commands/leaderboard');
-const monthlyCron = require('./events/cron/monthly');
 
 // Event Emitter Class (discord.js is OOP)
 const client = new Client({
@@ -40,9 +39,6 @@ client.on(Events.InteractionCreate, interactionCreateHandler);
 client.on(Events.MessageCreate, messageCreateHandler);
 client.on(Events.MessageReactionAdd, messageReactionHandler);
 client.on(Events.VoiceStateUpdate, voiceStateHandler);
-
-// BEFORE logging in, need to pass reference to the client. Can't do after logging in.
-monthlyCron(client);
 
 // Need to generate a discord bot token from dev portal and put in .env
 // Automatically passed in as an arg for client.login(DISCORD_TOKEN)

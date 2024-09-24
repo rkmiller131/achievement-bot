@@ -16,6 +16,9 @@ const {
   checkArtAficionado,
   checkFinalBoss
 } = require('../../utils/achievementChecks');
+const monthlyCron = require('../cron/monthly');
+
+let cronRunning = false;
 
 async function messageCreateHandler(message) {
   // type 7 is a userJoin event - don't want to give first impression achievement
@@ -61,6 +64,9 @@ async function messageCreateHandler(message) {
   }
 
   await logChannelActivity(message, guildId, userId);
+  if (!cronRunning) {
+    cronRunning = monthlyCron(message, guildId);
+  }
 }
 
 module.exports = {
