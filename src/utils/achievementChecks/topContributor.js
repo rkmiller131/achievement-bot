@@ -2,6 +2,11 @@ const { getUserDocument, sumChannelActivityByUser } = require('../collections/se
 const findAndGiveAchievement = require('../findAndGiveAchievement');
 
 module.exports = async function checkTopContributor(message, guildId, prevMonth, prevYear) {
+  if (!message) {
+    console.error('No public channel is established yet');
+    return;
+  }
+
   const topContributor = await sumChannelActivityByUser(guildId, prevMonth, prevYear);
 
   const userId = topContributor._id;

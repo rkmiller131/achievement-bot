@@ -42,6 +42,8 @@ const getPast2MonthsAndYears = require('../../utils/getPast2MonthsAndYears');
 const checkTopContributor = require('../../utils/achievementChecks/topContributor');
 const { removeChannelActivityByMonth } = require('../../utils/collections/server.collection');
 
+let PUBLIC_CHANNEL = null;
+
 async function monthlyCron(message, guildId) {
   // minute, hour, day of month, month, day of week
   //  0-59   0-23      1-31      1-12     0-7 0 or 7 are Sun
@@ -50,30 +52,32 @@ async function monthlyCron(message, guildId) {
     console.log('Running a job at 12:00AM on the first of every month');
     // get the past 2 months worth of entries
     const { prevMonth, prevYear, deleteMonth, deleteYear } = getPast2MonthsAndYears();
-    await checkTopContributor(message, guildId, prevMonth, prevYear);
+    await checkTopContributor(PUBLIC_CHANNEL, guildId, prevMonth, prevYear);
     await removeChannelActivityByMonth(guildId, deleteMonth, deleteYear);
   }, {
     timezone: 'America/Los_Angeles'
   });
 
   // Make sure the message channel we got is a public one (everyone can see it)
-  // NOTE - this currently doesn't work, only checks role based permissions not selected members who can see channel.
   const everyone = message.channel.guild.roles.everyone;
   const channelPermissions = message.channel.permissionsFor(everyone); // bitflag
-  // const channelPermissions = message.channel.permissionsFor(guildId); // bitflag
-  const hasViewPermissions = (bitfield) => {
-    return (BigInt(bitfield) & BigInt(0x400)) !== 0;
+  const isPublic = channelPermissions.has('ViewChannel');
+
+  if (isPublic) {
+    PUBLIC_CHANNEL = message;
+    console.log('public channel updated');
+    return true;
   }
-  // console.log(hasViewPermissions(channelPermissions));
-  console.log(channelPermissions.has('ViewChannel')) // <- THIS WORKS
-  // CHANNEL TYPE IS NO GOOD
-  // we could see if we could get access to the client again and see if we can send to the channel the user has posted in before
 
   const { prevMonth, prevYear, deleteMonth, deleteYear } = getPast2MonthsAndYears();
   // await checkTopContributor(message, guildId, prevMonth, prevYear);
   // await removeChannelActivityByMonth(guildId, deleteMonth, deleteYear);
-  return true;
+  console.log('message was not in a public channel');
+  return false;
 
 }
 
-module.exports = monthlyCron;
+module.exports = {
+  monthlyCron,
+  PUBLIC_CHANNEL
+};

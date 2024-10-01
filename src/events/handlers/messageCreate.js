@@ -16,7 +16,7 @@ const {
   checkArtAficionado,
   checkFinalBoss
 } = require('../../utils/achievementChecks');
-const monthlyCron = require('../cron/monthly');
+const { monthlyCron, PUBLIC_CHANNEL } = require('../cron/monthly');
 
 let cronRunning = false;
 
@@ -40,11 +40,16 @@ async function messageCreateHandler(message) {
   // don't want to count it as a participation in the channel other than for this achievement
   if (welcomeReply) return;
 
+  await logChannelActivity(message, guildId, userId);
+  if (!cronRunning) {
+    cronRunning = monthlyCron(message, guildId);
+  }
+
   const firstAchievement = await checkFirstImpressions(message, guildId, userId);
 
   // Update the user's participation count for this channel
   await updateUserChannels(message, guildId, userId);
-  if (firstAchievement) return; // no need to check the rest
+  if (cronRunning && firstAchievement) return; // no need to check the rest
 
   // Set the User's reaction streak to 0
   // (if they sent a message, this breaks their Introvert achievement streak)
@@ -55,18 +60,9 @@ async function messageCreateHandler(message) {
   await checkInsomniac(message, guildId, userId);
   await checkGifGifter(message, guildId, userId);
   await checkArtAficionado(message, guildId, userId);
-  const gotFinalBoss = await checkFinalBoss(guildId, userId);
 
-  if (gotFinalBoss) { // final boss is a bit different - need reference to either message or channel to send achievement and
-    // that reference might not be present in all types of handlers (like for voice). Can refactor later if I'm wrong
-    const { user } = await getUserDocument(guildId, userId);
-    await findAndGiveAchievement('Final Boss', user, message, guildId, userId);
-  }
-
-  await logChannelActivity(message, guildId, userId);
-  if (!cronRunning) {
-    cronRunning = monthlyCron(message, guildId);
-  }
+  if (!PUBLIC_CHANNEL) return;
+  await checkFinalBoss(PUBLIC_CHANNEL, guildId, userId);
 }
 
 module.exports = {
@@ -81,7 +77,7 @@ module.exports = {
 [X] Jabberwocky
 [X] Art Aficionado
 [X] Insomniac
-[\] Final Boss <--revise after cron related achievements
+[X] Final Boss <--revise after cron related achievements
 
 [X] Senpai Noticed
 [X] Reaction Rockstar
@@ -90,8 +86,9 @@ module.exports = {
 
 [X] Oratory Overlord
 [X] Frequent Flyer
+[ ] Final Boss
 
 [ ] Daily Diligence
-[ ] Top Contributor
+[X] Top Contributor
 [ ] Final Boss
 */
