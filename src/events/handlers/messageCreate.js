@@ -16,7 +16,7 @@ const {
   checkArtAficionado,
   checkFinalBoss
 } = require('../../utils/achievementChecks');
-const { monthlyCron, PUBLIC_CHANNEL } = require('../cron/monthly');
+const { monthlyCron } = require('../cron/monthly');
 
 let cronRunning = false;
 
@@ -60,9 +60,8 @@ async function messageCreateHandler(message) {
   await checkInsomniac(message, guildId, userId);
   await checkGifGifter(message, guildId, userId);
   await checkArtAficionado(message, guildId, userId);
+  await checkFinalBoss(message, guildId, userId);
 
-  if (!PUBLIC_CHANNEL) return;
-  await checkFinalBoss(PUBLIC_CHANNEL, guildId, userId);
 }
 
 module.exports = {

@@ -41,8 +41,7 @@ async function messageReactionHandler(reaction) {
 
   // Note - make a partials plugin in index.js so that rections can be viewed for past posts? I think it would be better not to do
   // partials and just have a disclaimer that achievement tracking won't go back in time - starts fresh upon being added to the server
-
-  // check final boss
+  await checkFinalBoss(message, guildId, userId);
 
 }
 
@@ -54,10 +53,11 @@ module.exports = {
 [X] Senpai Noticed
 [X] Reaction Rockstar
 [X] Introvert
-[ ] Final Boss
+[X] Final Boss
 
 [ ] Oratory Overlord
 [ ] Frequent Flyer
+[ ] Final Boss
 
 [ ] Daily Diligence
 [ ] Top Contributor
