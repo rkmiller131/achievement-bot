@@ -42,7 +42,8 @@ async function messageCreateHandler(message) {
 
   await logChannelActivity(message, guildId, userId);
   if (!cronRunning) {
-    cronRunning = monthlyCron(message, guildId);
+    cronRunning = await monthlyCron(message, guildId);
+    console.log('cron running? ', cronRunning)
   }
 
   const firstAchievement = await checkFirstImpressions(message, guildId, userId);
@@ -81,11 +82,11 @@ module.exports = {
 [X] Senpai Noticed
 [X] Reaction Rockstar
 [X] Introvert
-[ ] Final Boss
+[X] Final Boss
 
 [X] Oratory Overlord
 [X] Frequent Flyer
-[ ] Final Boss
+[X] Final Boss
 
 [ ] Daily Diligence
 [X] Top Contributor

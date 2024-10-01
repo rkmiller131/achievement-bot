@@ -2,21 +2,16 @@
 
  Daily diligence:
 
- Same idea, but filter the server by guild Id then filter channelActivity by the month and year
- AND if the day falls between 1 - 5
-
- Then same thing, group by user id and sum, then sort that sum by count -1
-
  const result = await Server.aggregate()
   .match({ guildId })
   .unwind('$channelActivity')
   .match({
-    month: pastMonth,
-    year: pastYear,
-    day: { $lte: 5, $gte: 1 }
+    'channelActivity.month': pastMonth,
+    'channelActivity.year': pastYear,
+    'channelActivity.day': { $lte: 5, $gte: 1 }
   })
   .group({
-    _id: userId,
+    _id: '$channelActivity.userId',
     count: { $sum: 1 }
   })
   .match({ count: { $gte: 20 } }) <- there are roughly 20 - 23 weekdays in every month, just do roughly 20.
@@ -32,14 +27,9 @@ After each achievement check for a user, do a final boss check too and save ref 
 
 */
 
-/*
-[ ] Top Contributor - send the most messages in a month
-[ ] Daily Diligence - post every weekday for a month straight
-*/
-
 const cron = require('node-cron');
 const getPast2MonthsAndYears = require('../../utils/getPast2MonthsAndYears');
-const checkTopContributor = require('../../utils/achievementChecks/topContributor');
+const { checkTopContributor, checkDailyDiligence } = require('../../utils/achievementChecks');
 const { removeChannelActivityByMonth } = require('../../utils/collections/server.collection');
 
 let PUBLIC_CHANNEL = null;
@@ -52,8 +42,16 @@ async function monthlyCron(message, guildId) {
     console.log('Running a job at 12:00AM on the first of every month');
     // get the past 2 months worth of entries
     const { prevMonth, prevYear, deleteMonth, deleteYear } = getPast2MonthsAndYears();
-    await checkTopContributor(PUBLIC_CHANNEL, guildId, prevMonth, prevYear);
+
+    const topUserId = await checkTopContributor(PUBLIC_CHANNEL, guildId, prevMonth, prevYear);
+    await checkFinalBoss(PUBLIC_CHANNEL, guildId, topUserId);
+
+    // check the daily diligence one
+    // (daily diligence also checks final boss for each achiever)
+    await checkDailyDiligence(PUBLIC_CHANNEL, guildId, prevMonth, prevYear);
     await removeChannelActivityByMonth(guildId, deleteMonth, deleteYear);
+    // reset/clear the id array for next cron schedule
+    achieverIds.length = 0;
   }, {
     timezone: 'America/Los_Angeles'
   });
@@ -66,18 +64,31 @@ async function monthlyCron(message, guildId) {
   if (isPublic) {
     PUBLIC_CHANNEL = message;
     console.log('public channel updated');
+    // const { prevMonth, prevYear, deleteMonth, deleteYear } = getPast2MonthsAndYears();
+    // await checkTopContributor(message, guildId, prevMonth, prevYear);
+    // await removeChannelActivityByMonth(guildId, deleteMonth, deleteYear);
+    // await checkDailyDiligence(PUBLIC_CHANNEL, guildId, prevMonth, prevYear);
     return true;
   }
-
-  const { prevMonth, prevYear, deleteMonth, deleteYear } = getPast2MonthsAndYears();
-  // await checkTopContributor(message, guildId, prevMonth, prevYear);
-  // await removeChannelActivityByMonth(guildId, deleteMonth, deleteYear);
   console.log('message was not in a public channel');
-  return false;
-
 }
+
+const getPublicChannel = () => {
+  if (PUBLIC_CHANNEL) {
+    return PUBLIC_CHANNEL;
+  } else {
+    console.log('PUBLIC_CHANNEL is not yet set.');
+    return null;
+  }
+};
 
 module.exports = {
   monthlyCron,
-  PUBLIC_CHANNEL
+  getPublicChannel
 };
+
+/*
+[X] Top Contributor - send the most messages in a month
+[X] Daily Diligence - post every weekday for a month straight
+[X] Final Boss - iterate for every user that got an achievement during cron job
+*/

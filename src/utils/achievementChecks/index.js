@@ -8,8 +8,8 @@ const checkFrequentFlyer = require('./frequentFlyer');
 const checkJabberwocky = require('./jabberwocky');
 const checkIntrovert = require('./introvert');
 const checkArtAficionado = require('./artAficionado');
-// TOP CONTRIBUTOR
-// DAILY DILIGENCE
+const checkTopContributor = require('./topContributor');
+const checkDailyDiligence = require('./dailyDiligence');
 const checkInsomniac = require('./insomniac');
 const checkOratoryOverlord = require('./oratoryOverlord');
 const checkFinalBoss = require('./finalBoss');
@@ -24,6 +24,8 @@ module.exports = {
   checkJabberwocky,
   checkIntrovert,
   checkArtAficionado,
+  checkTopContributor,
+  checkDailyDiligence,
   checkInsomniac,
   checkOratoryOverlord,
   checkFinalBoss

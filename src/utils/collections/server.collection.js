@@ -197,8 +197,22 @@ async function sumChannelActivityByUser(guildId, prevMonth, prevYear) {
 
 // ---------------------------------------------------------------------------------
 
-async function sumWeekdayActivityByUser(prevMonth, prevYear) {
+async function sumWeekdayActivityByUser(guildId, prevMonth, prevYear) {
+  const results = await Server.aggregate()
+  .match({ guildId })
+  .unwind('$channelActivity')
+  .match({
+    'channelActivity.month': prevMonth,
+    'channelActivity.year': prevYear,
+    'channelActivity.day': { $lte: 5, $gte: 1 }
+  })
+  .group({
+    _id: '$channelActivity.userId',
+    count: { $sum: 1 }
+  })
+  .match({ count: { $gte: 20 } }) // <- there are roughly 20 - 23 weekdays in every month, just do roughly 20.
 
+  return results;
 }
 
 // ---------------------------------------------------------------------------------

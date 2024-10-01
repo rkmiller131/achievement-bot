@@ -16,4 +16,5 @@ module.exports = async function checkTopContributor(message, guildId, prevMonth,
 
   const { user } = await getUserDocument(guildId, userId);
   await findAndGiveAchievement('Top Contributor', user, message, guildId, userId, customMention);
+  return userId;
 }

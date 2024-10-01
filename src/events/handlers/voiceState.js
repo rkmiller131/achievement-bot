@@ -8,7 +8,7 @@ const {
   checkFrequentFlyer,
   checkFinalBoss
 } = require('../../utils/achievementChecks');
-const { PUBLIC_CHANNEL } = require('../cron/monthly');
+const { getPublicChannel } = require('../cron/monthly');
 
 async function voiceStateHandler(oldState, newState) {
   const guildId = newState.guild.id;
@@ -17,7 +17,8 @@ async function voiceStateHandler(oldState, newState) {
   const newChannel = newState.channel;
   const joinEvent = newChannel && !oldChannel;
   const leaveEvent = !newChannel && oldChannel;
-  const channel = PUBLIC_CHANNEL ? PUBLIC_CHANNEL.channel : newChannel;
+  const publicMessage = getPublicChannel();
+  const channel = publicMessage ? publicMessage.channel : newChannel;
 
   const { user } = await getUserDocument(guildId, userId);
   if (!user) {
@@ -39,8 +40,8 @@ async function voiceStateHandler(oldState, newState) {
     // using the user's lastJoinTimestamp calc the difference in date.now divided by 1000 and increment join duration for seconds.
     const leaveTimestamp = Date.now();
     await updateUserVoiceState(guildId, userId, null, leaveTimestamp);
-    if (PUBLIC_CHANNEL) {
-      await checkFinalBoss(PUBLIC_CHANNEL, guildId, userId);
+    if (publicMessage) {
+      await checkFinalBoss(publicMessage, guildId, userId);
     }
   }
 
