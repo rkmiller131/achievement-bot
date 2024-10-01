@@ -131,6 +131,38 @@ async function logChannelActivity(message, guildId, userId) {
 
 // ---------------------------------------------------------------------------------
 
+// Instead of a Server.deleteMany, it will be more performant to do an aggregation
+// pipeline and SET a new collection with only the entries that meet certain parameters.
+// It kills two birds with one stone, because you are already setting during the filter/cond step
+// All other entries will be deleted as a side effect
+async function removeChannelActivityByMonth (guildId, deleteMonth, deleteYear) {
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  try {
+    await Server.updateMany({guildId}, {
+      $set: { // update channelActiity with a new value entirely (a new array)
+        channelActivity: {
+          $filter: { // the new array is determined by this filter condition being met
+            input: "$channelActivity",
+            as: "activity",
+            cond: {
+              $not: { // everything below that does NOT meet the following condition
+                $and: [ // we check if both of the following are true as we iterate through every item:
+                  { $eq: [ "$$activity.year", deleteYear ] }, // the current entry's year is equal to the deleteYear
+                  { $eq: [ "$$activity.month", deleteMonth ] } // the current entry's month is equal to the deleteMonth
+                ]
+              }
+            }
+          }
+        }
+      }
+    });
+    console.log(`Successfully removed entries in ${months[deleteMonth]} for guild ${guildId}`);
+  } catch (error) {
+    console.error(`Error removing entries in ${months[deleteMonth]} for guild ${guildId}:`, error);
+    throw error;
+  }
+}
+
 async function resetReactionStreak(guildId, userId) {
   await Server.findOneAndUpdate(
     { 'guildId': guildId },
@@ -289,6 +321,7 @@ module.exports = {
   getUserDocument,
   giveUserAchievement,
   logChannelActivity,
+  removeChannelActivityByMonth,
   resetReactionStreak,
   updateReactionStreak,
   sumChannelActivityByUser,
