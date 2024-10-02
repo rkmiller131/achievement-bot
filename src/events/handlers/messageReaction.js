@@ -5,7 +5,7 @@ const {
 } = require('../../utils/collections/server.collection');
 const getTotalMessageReactions = require('../../utils/getTotalMessageReactions');
 const findAndGiveAchievement = require('../../utils/findAndGiveAchievement');
-const { checkIntrovert } = require('../../utils/achievementChecks');
+const { checkIntrovert, checkFinalBoss } = require('../../utils/achievementChecks');
 
 async function messageReactionHandler(reaction) {
   if(reaction.message.author.bot) return;
@@ -41,7 +41,8 @@ async function messageReactionHandler(reaction) {
 
   // Note - make a partials plugin in index.js so that rections can be viewed for past posts? I think it would be better not to do
   // partials and just have a disclaimer that achievement tracking won't go back in time - starts fresh upon being added to the server
-  await checkFinalBoss(message, guildId, userId);
+  await checkFinalBoss(message, guildId, reactionAuthorId);
+  await checkFinalBoss(message, guildId, messageAuthorId);
 
 }
 

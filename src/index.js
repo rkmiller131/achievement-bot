@@ -44,3 +44,10 @@ client.on(Events.VoiceStateUpdate, voiceStateHandler);
 // Automatically passed in as an arg for client.login(DISCORD_TOKEN)
 // When running the start script, can see the bot as "online" in the server
 client.login();
+
+/*
+FINAL REFINEMENTS AND TESTING FOR:
+[ ] Daily Diligence - rework solution so that it's not tallying for multiple posts in a single day (date)
+[X] Reaction Rockstar - maybe create a THIRD test user to see if stacking reactions counts
+[ ] Final Boss - make sure this check works when all achievements are met.
+*/

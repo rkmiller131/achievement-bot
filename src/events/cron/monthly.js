@@ -1,32 +1,3 @@
-/*
-
- Daily diligence:
-
- const result = await Server.aggregate()
-  .match({ guildId })
-  .unwind('$channelActivity')
-  .match({
-    'channelActivity.month': pastMonth,
-    'channelActivity.year': pastYear,
-    'channelActivity.day': { $lte: 5, $gte: 1 }
-  })
-  .group({
-    _id: '$channelActivity.userId',
-    count: { $sum: 1 }
-  })
-  .match({ count: { $gte: 20 } }) <- there are roughly 20 - 23 weekdays in every month, just do roughly 20.
-
-  Now iterate over each result and give achievement for daily diligence.
-
-when giving a user an achievement, we have access to a channel Id they have visited in the
-channel activity.
-const channel = client.channels.cache.get('id');
-channel.send('content');
-
-After each achievement check for a user, do a final boss check too and save ref to that same channel id
-
-*/
-
 const cron = require('node-cron');
 const getPast2MonthsAndYears = require('../../utils/getPast2MonthsAndYears');
 const { checkTopContributor, checkDailyDiligence } = require('../../utils/achievementChecks');
