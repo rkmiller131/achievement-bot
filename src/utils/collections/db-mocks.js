@@ -1,6 +1,8 @@
+const mongoose = require('mongoose');
+
 const mockAchievements = [
   {
-    _id: '66e74f3f2259ce8634dc18da',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18da'),
     name: 'First Impressions',
     description: 'Make your first post or contribution',
     points: 10,
@@ -8,7 +10,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726428183/firstImpressions_zcx7oh.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18dd',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18dd'),
     name: 'GIF Gifter',
     description: 'Share 20 GIFs across the server',
     points: 20,
@@ -24,108 +26,109 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726428242/senpaiNoticed_awb5rr.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
-    rarity: 'Common',
-    assetURL: ''
+    _id: '66e74f3f2259ce8634dc18e5',
+    name: 'Daily Diligence',
+    description: 'Post every weekday for a month straight',
+    points: 40,
+    rarity: 'Epic',
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429597/dailyDiligence_rxk6el.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
-    rarity: 'Common',
-    assetURL: ''
+    _id: '66e74f3f2259ce8634dc18de',
+    name: 'Social Butterfly',
+    description: 'Participate in 5 different text channels',
+    points: 25,
+    rarity: 'Rare',
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429309/socialButterfly_lydozl.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
-    rarity: 'Common',
-    assetURL: ''
+    _id: '66e74f3f2259ce8634dc18df',
+    name: 'Reaction Rockstar',
+    description: 'Get 25 reactions on a single post',
+    points: 30,
+    rarity: 'Rare',
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429333/reactionRockstar_rzyos3.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
-    rarity: 'Common',
-    assetURL: ''
+    _id: '66e74f3f2259ce8634dc18e0',
+    name: 'Frequent Flyer',
+    description: 'Join and leave voice channels 100 times',
+    points: 30,
+    rarity: 'Rare',
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429359/frequentFlyer_lvkx4f.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
-    rarity: 'Common',
-    assetURL: ''
+    _id: '66e74f3f2259ce8634dc18e1',
+    name: 'Jabberwocky',
+    description: 'Send 100 messages in a single text channel',
+    points: 30,
+    rarity: 'Rare',
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429401/jabberwockyRevised_coduue.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
-    rarity: 'Common',
-    assetURL: ''
+    _id: '66e74f3f2259ce8634dc18e2',
+    name: 'Introvert',
+    description: 'React to 10 messages in a row without posting one yourself',
+    points: 30,
+    rarity: 'Rare',
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429428/introvert_xb3ank.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
-    rarity: 'Common',
-    assetURL: ''
+    _id: '66e74f3f2259ce8634dc18e3',
+    name: 'Art Aficionado',
+    description: 'Share 10 attachments in #art channels',
+    points: 35,
+    rarity: 'Epic',
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429476/artAficionado_kkytmu.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
-    rarity: 'Common',
-    assetURL: ''
+    _id: '66e74f3f2259ce8634dc18e4',
+    name: 'Top Contributor',
+    description: 'Send the most messages in a month',
+    points: 40,
+    rarity: 'Epic',
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429632/topContributor_uzxuvh.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
+    _id: '66e74f3f2259ce8634dc18db',
+    name: 'Welcome Wagon',
+    description: 'Greet and wave to 10 new members',
+    points: 15,
     rarity: 'Common',
-    assetURL: ''
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726428217/welcomeWagonRevised_cghiqn.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
-    rarity: 'Common',
-    assetURL: ''
+    _id: '66e74f3f2259ce8634dc18e6',
+    name: 'Insomniac',
+    description: 'Post between 2AM and 4AM local time',
+    points: 50,
+    rarity: 'Legendary',
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429518/insomniacRevised_moy7tk.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
-    rarity: 'Common',
-    assetURL: ''
+    _id: '66e74f3f2259ce8634dc18e7',
+    name: 'Oratory Overlord',
+    description: 'Spend 100 hours talking in voice channels',
+    points: 50,
+    rarity: 'Legendary',
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429545/oratoryOverlord_emqzmk.png'
   },
   {
-    _id: '',
-    name: '',
-    description: '',
-    points: 10,
-    rarity: 'Common',
-    assetURL: ''
+    _id: '66e74f3f2259ce8634dc18e8',
+    name: 'Final Boss',
+    description: 'Obtain all possible achievements',
+    points: 100,
+    rarity: 'Legendary',
+    assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429571/finalBoss_qhbi7o.png'
   },
 ]
 
 const mockServer = {
-    guildId: '1264924870425444445',
+    _id: new mongoose.Types.ObjectId(),
+    guildId: '1264924870425444443',
     users: [
       {
-        userId: '384151206559350784',
+        userId: '384151206559350782',
         globalName: 'RACHEL',
         channelsParticipatedIn: {
           'general': 3,
@@ -258,7 +261,16 @@ const mockServer = {
         ]
       },
     ],
-    channelActivity: []
+    channelActivity: [
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 3,
+        year: 2024,
+        _id: '66fd4ea5fab83f8095178f79'
+      }
+    ]
 }
 
 module.exports = {
