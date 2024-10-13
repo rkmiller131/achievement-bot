@@ -1,6 +1,6 @@
 const cron = require('node-cron');
 const getPast2MonthsAndYears = require('../../utils/getPast2MonthsAndYears');
-const { checkTopContributor, checkDailyDiligence } = require('../../utils/achievementChecks');
+const { checkTopContributor, checkDailyDiligence, checkFinalBoss } = require('../../utils/achievementChecks');
 const { removeChannelActivityByMonth } = require('../../utils/collections/server.collection');
 
 let PUBLIC_CHANNEL = null;
@@ -9,7 +9,7 @@ async function monthlyCron(message, guildId) {
   // minute, hour, day of month, month, day of week
   //  0-59   0-23      1-31      1-12     0-7 0 or 7 are Sun
   // On the first of every month, '0 0 1 1-12 *'
-  cron.schedule('* 7 * * *', async () => {
+  cron.schedule('* 11 * * *', async () => {
     console.log('Running a job at 12:00AM on the first of every month');
     // get the past 2 months worth of entries
     const { prevMonth, prevYear, deleteMonth, deleteYear } = getPast2MonthsAndYears();

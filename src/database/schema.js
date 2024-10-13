@@ -66,7 +66,7 @@ const channelActivitySchema = new mongoose.Schema({
   day: { type: Number, required: true },
   year: { type: Number, required: true, index: true },
   fullDate: { type: Date, required: true }
-})
+});
 
 const serverSchema = new mongoose.Schema({
   guildId: {
@@ -75,7 +75,8 @@ const serverSchema = new mongoose.Schema({
     unique: true
   },
   users: {type: [userSchema], default: []},
-  channelActivity: { type: [channelActivitySchema], default: [] }
+  channelActivity: { type: [channelActivitySchema], default: [] },
+  dailyUserActivity: { type: [channelActivitySchema], default: [] }
 });
 
 const Server = mongoose.model('Servers', serverSchema);

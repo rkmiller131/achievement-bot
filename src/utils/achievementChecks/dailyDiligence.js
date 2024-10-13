@@ -1,6 +1,6 @@
 const { getUserDocument, sumWeekdayActivityByUser } = require('../collections/server.collection');
 const findAndGiveAchievement = require('../findAndGiveAchievement');
-const { checkFinalBoss } = require('.');
+const checkFinalBoss = require('./finalBoss');
 
 module.exports = async function checkDailyDiligence(message, guildId, prevMonth, prevYear) {
   if (!message) {

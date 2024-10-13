@@ -109,24 +109,28 @@ async function logChannelActivity(message, guildId, userId) {
   const today = new Date();
   const server = await getServer(guildId);
 
+  const logEntry = {
+    userId,
+    channelId: message.channel.id,
+    month: today.getMonth(),
+    day: today.getDay(), // 0 - 6 Sun - Sat
+    year: today.getFullYear(),
+    fullDate: today
+  }
+
   try {
+    // log general channel activity
+    server.channelActivity.push(logEntry);
+    await server.save();
     // only want one log a day per user to track daily habits (daily diligence)
-    const userActivityAlreadyLoggedToday = server.channelActivity.find((log) => {
+    const userActivityAlreadyLoggedToday = server.dailyUserActivity.find((log) => {
       const sameDate = isSameDay(log.fullDate, today);
       const sameUser = log.userId === userId;
       return sameDate && sameUser;
     });
 
     if (!userActivityAlreadyLoggedToday) {
-      const logEntry = {
-        userId,
-        channelId: message.channel.id,
-        month: today.getMonth(),
-        day: today.getDay(), // 0 - 6 Sun - Sat
-        year: today.getFullYear(),
-        fullDate: today
-      }
-      server.channelActivity.push(logEntry);
+      server.dailyUserActivity.push(logEntry);
       await server.save();
     }
 
@@ -138,30 +142,20 @@ async function logChannelActivity(message, guildId, userId) {
 
 // ---------------------------------------------------------------------------------
 
-// Instead of a Server.deleteMany, it will be more performant to do an aggregation
-// pipeline and SET a new collection with only the entries that meet certain parameters.
-// It kills two birds with one stone, because you are already setting during the filter/cond step
-// All other entries will be deleted as a side effect
 async function removeChannelActivityByMonth (guildId, deleteMonth, deleteYear) {
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   try {
     await Server.updateMany({guildId}, {
-      $set: { // update channelActiity with a new value entirely (a new array)
+      $pull: { // instead of set, pull will remove specific items from an array
         channelActivity: {
-          $filter: { // the new array is determined by this filter condition being met
-            input: "$channelActivity",
-            as: "activity",
-            cond: {
-              $not: { // everything below that does NOT meet the following condition
-                $and: [ // we check if both of the following are true as we iterate through every item:
-                  { $eq: [ "$$activity.year", deleteYear ] }, // the current entry's year is equal to the deleteYear
-                  { $eq: [ "$$activity.month", deleteMonth ] } // the current entry's month is equal to the deleteMonth
-                ]
-              }
-            }
-          }
+          year: deleteYear,
+          month: deleteMonth
+        },
+        dailyUserActivity: {
+          year: deleteYear,
+          month: deleteMonth
         }
-      }
+      },
     });
     console.log(`Successfully removed entries in ${months[deleteMonth]} for guild ${guildId}`);
   } catch (error) {
@@ -207,14 +201,14 @@ async function sumChannelActivityByUser(guildId, prevMonth, prevYear) {
 async function sumWeekdayActivityByUser(guildId, prevMonth, prevYear) {
   const results = await Server.aggregate()
   .match({ guildId })
-  .unwind('$channelActivity')
+  .unwind('$dailyUserActivity')
   .match({
-    'channelActivity.month': prevMonth,
-    'channelActivity.year': prevYear,
-    'channelActivity.day': { $lte: 5, $gte: 1 }
+    'dailyUserActivity.month': prevMonth + 1, // TODO: remove the + 1
+    'dailyUserActivity.year': prevYear,
+    'dailyUserActivity.day': { $lte: 5, $gte: 1 }
   })
   .group({
-    _id: '$channelActivity.userId',
+    _id: '$dailyUserActivity.userId',
     count: { $sum: 1 }
   })
   .match({ count: { $gte: 20 } }) // <- there are roughly 20 - 23 weekdays in every month, just do roughly 20.
