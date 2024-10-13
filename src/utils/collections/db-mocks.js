@@ -18,7 +18,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726428269/gifGifterRevised_s1bnsj.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18dc',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18dc'),
     name: 'Senpai Noticed',
     description: 'Get 10 reactions on a single post',
     points: 20,
@@ -26,7 +26,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726428242/senpaiNoticed_awb5rr.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18e5',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18e5'),
     name: 'Daily Diligence',
     description: 'Post every weekday for a month straight',
     points: 40,
@@ -34,7 +34,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429597/dailyDiligence_rxk6el.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18de',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18de'),
     name: 'Social Butterfly',
     description: 'Participate in 5 different text channels',
     points: 25,
@@ -42,7 +42,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429309/socialButterfly_lydozl.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18df',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18df'),
     name: 'Reaction Rockstar',
     description: 'Get 25 reactions on a single post',
     points: 30,
@@ -50,7 +50,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429333/reactionRockstar_rzyos3.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18e0',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18e0'),
     name: 'Frequent Flyer',
     description: 'Join and leave voice channels 100 times',
     points: 30,
@@ -58,7 +58,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429359/frequentFlyer_lvkx4f.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18e1',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18e1'),
     name: 'Jabberwocky',
     description: 'Send 100 messages in a single text channel',
     points: 30,
@@ -66,7 +66,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429401/jabberwockyRevised_coduue.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18e2',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18e2'),
     name: 'Introvert',
     description: 'React to 10 messages in a row without posting one yourself',
     points: 30,
@@ -74,7 +74,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429428/introvert_xb3ank.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18e3',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18e3'),
     name: 'Art Aficionado',
     description: 'Share 10 attachments in #art channels',
     points: 35,
@@ -82,7 +82,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429476/artAficionado_kkytmu.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18e4',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18e4'),
     name: 'Top Contributor',
     description: 'Send the most messages in a month',
     points: 40,
@@ -90,7 +90,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429632/topContributor_uzxuvh.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18db',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18db'),
     name: 'Welcome Wagon',
     description: 'Greet and wave to 10 new members',
     points: 15,
@@ -98,7 +98,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726428217/welcomeWagonRevised_cghiqn.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18e6',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18e6'),
     name: 'Insomniac',
     description: 'Post between 2AM and 4AM local time',
     points: 50,
@@ -106,7 +106,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429518/insomniacRevised_moy7tk.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18e7',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18e7'),
     name: 'Oratory Overlord',
     description: 'Spend 100 hours talking in voice channels',
     points: 50,
@@ -114,7 +114,7 @@ const mockAchievements = [
     assetURL: 'https://res.cloudinary.com/dnr41r1lq/image/upload/v1726429545/oratoryOverlord_emqzmk.png'
   },
   {
-    _id: '66e74f3f2259ce8634dc18e8',
+    _id: new mongoose.Types.ObjectId('66e74f3f2259ce8634dc18e8'),
     name: 'Final Boss',
     description: 'Obtain all possible achievements',
     points: 100,
@@ -263,13 +263,212 @@ const mockServer = {
     ],
     channelActivity: [
       {
+        userId: '384151206559350784', // daily diligence count: 21 (& 1 sun)
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 2,
+        year: 2024,
+        fullDate: '2024-10-01T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
         userId: '384151206559350784',
         channelId: '1264924870425444448',
         month: 9,
         day: 3,
         year: 2024,
-        _id: '66fd4ea5fab83f8095178f79'
-      }
+        fullDate: '2024-10-02T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 4,
+        year: 2024,
+        fullDate: '2024-10-03T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 5,
+        year: 2024,
+        fullDate: '2024-10-04T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 1,
+        year: 2024,
+        fullDate: '2024-10-07T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 2,
+        year: 2024,
+        fullDate: '2024-10-08T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 3,
+        year: 2024,
+        fullDate: '2024-10-09T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 4,
+        year: 2024,
+        fullDate: '2024-10-10T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 5,
+        year: 2024,
+        fullDate: '2024-10-11T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 1,
+        year: 2024,
+        fullDate: '2024-10-14T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 2,
+        year: 2024,
+        fullDate: '2024-10-15T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 3,
+        year: 2024,
+        fullDate: '2024-10-16T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 4,
+        year: 2024,
+        fullDate: '2024-10-17T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 5,
+        year: 2024,
+        fullDate: '2024-10-18T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 1,
+        year: 2024,
+        fullDate: '2024-10-21T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 2,
+        year: 2024,
+        fullDate: '2024-10-22T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 3,
+        year: 2024,
+        fullDate: '2024-10-23T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 4,
+        year: 2024,
+        fullDate: '2024-10-24T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 5,
+        year: 2024,
+        fullDate: '2024-10-25T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 0,
+        year: 2024,
+        fullDate: '2024-10-27T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 1,
+        year: 2024,
+        fullDate: '2024-10-28T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '384151206559350784',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 2,
+        year: 2024,
+        fullDate: '2024-10-29T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
+      {
+        userId: '1280900709298208901',
+        channelId: '1264924870425444448',
+        month: 9,
+        day: 0,
+        year: 2024,
+        fullDate: '2024-10-13T14:02:35.853+00:00',
+        _id: new mongoose.Types.ObjectId()
+      },
     ]
 }
 

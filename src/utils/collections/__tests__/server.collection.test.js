@@ -5,7 +5,8 @@ const {
   createNewUser,
   getServer,
   getUserDocument,
-  giveUserAchievement
+  giveUserAchievement,
+  logChannelActivity
 } = require('../server.collection');
 
 beforeAll(async () => {
@@ -70,5 +71,29 @@ describe('Server Collection Utilities', () => {
     };
 
     expect(Server.findOneAndUpdate).toHaveBeenCalledWith(updateCondition, updateOperation, options);
+  });
+
+  it('should log channel activity only once per day per user', async () => {
+    mockingoose(Server)
+    .toReturn(mockServer,'findOne')
+
+    const message = {
+      channel: { id: '1234567890' }
+    }
+    const newLog = {
+      userId: mockUserId,
+      channelId: '1234567890',
+      month: 9,
+      day: 13,
+      year: 2024,
+      fullDate: '2024-10-13T14:02:35.853+00:00'
+    }
+    mockServer.channelActivity.push(newLog);
+    mockingoose(Server)
+    .toReturn(mockServer,'save');
+
+    await logChannelActivity(message, mockGuildId, mockUserId);
+    const server = await getServer(mockGuildId);
+    expect(server.channelActivity.find((log) => log.userId === mockUserId)).toBeDefined();
   });
 })
