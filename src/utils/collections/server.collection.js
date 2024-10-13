@@ -181,7 +181,7 @@ async function sumChannelActivityByUser(guildId, prevMonth, prevYear) {
     .match({ guildId })
     .unwind('$channelActivity')
     .match({
-      'channelActivity.month': prevMonth + 1, // TODO - remove the +1
+      'channelActivity.month': prevMonth,
       'channelActivity.year': prevYear
     })
     .group({
@@ -203,7 +203,7 @@ async function sumWeekdayActivityByUser(guildId, prevMonth, prevYear) {
   .match({ guildId })
   .unwind('$dailyUserActivity')
   .match({
-    'dailyUserActivity.month': prevMonth + 1, // TODO: remove the + 1
+    'dailyUserActivity.month': prevMonth,
     'dailyUserActivity.year': prevYear,
     'dailyUserActivity.day': { $lte: 5, $gte: 1 }
   })

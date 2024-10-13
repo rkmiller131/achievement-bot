@@ -21,7 +21,7 @@ async function execute(interaction) {
       .setColor(0x0096FF)
       .setTitle(`Community Ranks Leaderboard`)
       .setDescription(`Top 5 Achievers in ${interaction.channel.guild.name}`)
-      .setThumbnail('https://res.cloudinary.com/dnr41r1lq/image/upload/v1725371083/confetti_ehzngc.png')
+      .setThumbnail('https://res.cloudinary.com/dnr41r1lq/image/upload/v1728845360/botThumbnail_plcxsc.jpg')
       .setTimestamp()
 
     top5Users.forEach((user, index) => {
