@@ -1,6 +1,7 @@
 const { Server } = require('../../database/schema');
 const mongoose = require('mongoose');
 const isMessageArtRelated = require('../isMessageArtRelated');
+const isSameDay = require('../isSameDay');
 
 // ---------------------------------------------------------------------------------
 
@@ -105,28 +106,34 @@ async function giveUserAchievement(achievementRef, guildId, userId) {
 // ---------------------------------------------------------------------------------
 
 async function logChannelActivity(message, guildId, userId) {
-  const channelName = message.channel.name;
-  const channelId = message.channel.id;
-
   const today = new Date();
-  const logEntry = {
-    userId,
-    channelId,
-    month: today.getMonth(),
-    day: today.getDay(), // 0 - 6 Sun - Sat
-    year: today.getFullYear()
-  }
-
   const server = await getServer(guildId);
+
   try {
-    server.channelActivity.push(logEntry);
-    await server.save();
+    // only want one log a day per user to track daily habits (daily diligence)
+    const userActivityAlreadyLoggedToday = server.channelActivity.find((log) => {
+      const sameDate = isSameDay(log.fullDate, today);
+      const sameUser = log.userId === userId;
+      return sameDate && sameUser;
+    });
+
+    if (!userActivityAlreadyLoggedToday) {
+      const logEntry = {
+        userId,
+        channelId: message.channel.id,
+        month: today.getMonth(),
+        day: today.getDay(), // 0 - 6 Sun - Sat
+        year: today.getFullYear(),
+        fullDate: today
+      }
+      server.channelActivity.push(logEntry);
+      await server.save();
+    }
 
   } catch (error) {
     console.error('Error logging text channel activity:', error);
     throw new Error('Error logging text channel activity:', error);
   }
-
 }
 
 // ---------------------------------------------------------------------------------

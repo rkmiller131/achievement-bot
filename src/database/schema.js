@@ -64,7 +64,8 @@ const channelActivitySchema = new mongoose.Schema({
   channelId: { type: String, required: true },
   month: { type: Number, required: true, index: true },
   day: { type: Number, required: true },
-  year: { type: Number, required: true, index: true }
+  year: { type: Number, required: true, index: true },
+  fullDate: { type: Date, required: true }
 })
 
 const serverSchema = new mongoose.Schema({
