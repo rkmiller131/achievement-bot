@@ -35,10 +35,6 @@ async function monthlyCron(message, guildId) {
   if (isPublic) {
     PUBLIC_CHANNEL = message;
     console.log('public channel updated');
-    // const { prevMonth, prevYear, deleteMonth, deleteYear } = getPast2MonthsAndYears();
-    // await checkTopContributor(message, guildId, prevMonth, prevYear);
-    // await removeChannelActivityByMonth(guildId, deleteMonth, deleteYear);
-    // await checkDailyDiligence(PUBLIC_CHANNEL, guildId, prevMonth, prevYear);
     return true;
   }
   console.log('message was not in a public channel');
