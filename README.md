@@ -10,7 +10,7 @@
       📘 studying alongside classmates, <br>
       🎮 or simply enjoying quality time with friends, <br> <br>
       This achievement bot brings a playful twist to your daily interactions. ^-^ <br> <br>
-      <span>😉<a href="https://www.webdevrachel.com" target="_blank">INVITE ME</a>👈🏻</span>
+      <span>😉<a href="https://discord.com/oauth2/authorize?client_id=1264779705685639261&scope=bot&permissions=311419989056" target="_blank">INVITE ME</a>👈🏻</span>
       <p align="right">
         <a href="https://www.linkedin.com/in/rachel-miller-mlr/" rel="nofollow">
           <img src="https://github.com/user-attachments/assets/a4b51cde-a789-4900-8fd5-9fe5ed9aec4e" alt="LinkdIn" style="width: 25px; margin-left: 20px;">
@@ -47,9 +47,17 @@
 
 ## How to Use
 ### ➕ Adding the bot to your server
-To add the bot to your server, send an invite...(TODO: link when bot is complete and ready for public access)
+To add the bot to your server, use this link to invite and enable all permissions: <br>
+[Invite Bot](https://discord.com/oauth2/authorize?client_id=1264779705685639261&scope=bot&permissions=311419989056)
+
+<img src="https://github.com/user-attachments/assets/b54f98f5-d45a-4ce3-a58f-1b5dadb539d6" alt="achievmentsP2" style="width: 650px;"/>
 
 ### 🖥️ Testing the Project Locally
+Recommended:
+* [NVM](https://github.com/nvm-sh/nvm) to manage installations of Node and NPM
+* Node v20
+<br>
+
 1️⃣ If you'd like to clone down the project code for yourself, create a folder on your PC where you wish to save the repo.
 ```
 cd folderIWantToSaveIn
