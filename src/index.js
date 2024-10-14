@@ -23,7 +23,7 @@ const client = new Client({
     GatewayIntentBits.GuildMessages, // intent to receive message events
     GatewayIntentBits.MessageContent, // intent to read message content/embeds/attachments, etc.
     GatewayIntentBits.GuildMessageReactions, // intent to respond to emoji reactions
-    GatewayIntentBits.GuildVoiceStates
+    GatewayIntentBits.GuildVoiceStates // intent to respond to voice channel events (join, leave, mute, etc.)
   ],
   // Note: could also include the partials plugin here, but decided not to for the use case of this particular bot - everyone will just start fresh, no retro-actively given achievements
 });
@@ -47,7 +47,7 @@ client.login();
 
 /*
 FINAL REFINEMENTS AND TESTING FOR:
-[ ] Daily Diligence - rework solution so that it's not tallying for multiple posts in a single day (date)
+[X] Daily Diligence - rework solution so that it's not tallying for multiple posts in a single day (date)
 [X] Reaction Rockstar - maybe create a THIRD test user to see if stacking reactions counts
-[ ] Final Boss - make sure this check works when all achievements are met.
+[X] Final Boss - make sure this check works when all achievements are met.
 */

@@ -17,6 +17,8 @@ async function clientReadyHandler(client) {
   try {
     const data = await discordAPI.put(
       // Register the achievement bot app id with the current server id
+      // In a local dev environment, this can be: Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID)
+      // but by removing Guild and the GuildId, now they will be posted globally on the bot for all servers to access.
       Routes.applicationCommands(process.env.CLIENT_ID),
       // Send a JSON payload array as the request body
       { body: client.commands.map((command) => command.data.toJSON()) }

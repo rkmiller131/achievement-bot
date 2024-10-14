@@ -88,7 +88,7 @@ module.exports = {
 [X] Frequent Flyer
 [X] Final Boss
 
-[ ] Daily Diligence
+[X] Daily Diligence
 [X] Top Contributor
-[ ] Final Boss
+[X] Final Boss
 */
