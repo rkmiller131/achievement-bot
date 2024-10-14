@@ -11,7 +11,7 @@ async function messageReactionHandler(reaction) {
   if(reaction.message.author.bot) return;
 
   const guildId = reaction.message.guildId;
-  const message = reaction.message; // so that we can send replies/embeds to message.channel
+  const message = reaction.message;
   const messageAuthorId = reaction.message.author.id;
 
   const lastReaction = Array.from(reaction.message.reactions.cache.values()).pop();
@@ -39,28 +39,10 @@ async function messageReactionHandler(reaction) {
     await findAndGiveAchievement('Reaction Rockstar', user, message, guildId, messageAuthorId);
   }
 
-  // Note - make a partials plugin in index.js so that rections can be viewed for past posts? I think it would be better not to do
-  // partials and just have a disclaimer that achievement tracking won't go back in time - starts fresh upon being added to the server
   await checkFinalBoss(message, guildId, reactionAuthorId);
   await checkFinalBoss(message, guildId, messageAuthorId);
-
 }
 
 module.exports = {
   messageReactionHandler,
 }
-
-/*
-[X] Senpai Noticed
-[X] Reaction Rockstar
-[X] Introvert
-[X] Final Boss
-
-[ ] Oratory Overlord
-[ ] Frequent Flyer
-[ ] Final Boss
-
-[ ] Daily Diligence
-[ ] Top Contributor
-[ ] Final Boss
-*/

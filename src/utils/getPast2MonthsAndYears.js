@@ -7,10 +7,10 @@ module.exports = function getPast2MonthsAndYears() {
   const prevYear = currentMonth === 0 ? currentYear - 1 : currentYear;
 
   const deleteMonth = (() => {
-    if (currentMonth === 0) { // Jan
-      return 10; // November
-    } else if (currentMonth === 1) { // Feb
-      return 11; // December
+    if (currentMonth === 0) {
+      return 10;
+    } else if (currentMonth === 1) {
+      return 11;
     } else {
       return currentMonth - 2;
     }

@@ -44,26 +44,26 @@ async function getServer(guildId) {
 async function getTop5Users(guildId) {
   try {
     const results = await Server.aggregate()
-    .match({ guildId }) // find the correct server document for this guild
-    .unwind('$users') // now instead of server being the doc and server.users being an [], each user is its own document like: users.(userId, globalName, achievments, etc.) - these are now split into an array of objects for each user
-    .project({ // https://www.mongodb.com/docs/manual/reference/operator/aggregation/project/
-      userId: '$users.userId', // create fields you want to pass along, name them however you want
+    .match({ guildId })
+    .unwind('$users')
+    .project({
+      userId: '$users.userId',
       globalName: '$users.globalName',
-      achievements: { // you can even perform more actions on the fields, such as mapping (transforming the achievements array)
-        $map: { // https://www.mongodb.com/docs/manual/reference/operator/aggregation/map/
-          input: '$users.achievements', // map over this array
-          as: 'achievement', // and for each achievement,
+      achievements: {
+        $map: {
+          input: '$users.achievements',
+          as: 'achievement',
           in: {
-            points: '$$achievement.points' // create a new object with only the points field (flattens array). Double $$ is specific to the requirements of mongo map syntax
+            points: '$$achievement.points'
           }
         }
       },
-      achievementCount: { $size: '$users.achievements' } // a new field passed onto the next pipeline fn that counts length of achievement array
+      achievementCount: { $size: '$users.achievements' }
     })
-    .unwind('achievements') // unwind the projected achievements field
-    .group({ // group these accumulator objects (the keys will be what you see in the final result) - accumulator objects = fields that will be accumulated across all documents
+    .unwind('achievements')
+    .group({
       _id: '$userId',
-      globalName: { $first: '$globalName' }, // using $first in the grouping stage allows you to preserve the first document meaning it doesn't accumulate that property across all documents
+      globalName: { $first: '$globalName' },
       totalPoints: { $sum: '$achievements.points' },
       achievementCount: { $first: '$achievementCount' }
     })
@@ -113,7 +113,7 @@ async function logChannelActivity(message, guildId, userId) {
     userId,
     channelId: message.channel.id,
     month: today.getMonth(),
-    day: today.getDay(), // 0 - 6 Sun - Sat
+    day: today.getDay(),
     year: today.getFullYear(),
     fullDate: today
   }
@@ -146,7 +146,7 @@ async function removeChannelActivityByMonth (guildId, deleteMonth, deleteYear) {
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   try {
     await Server.updateMany({guildId}, {
-      $pull: { // instead of set, pull will remove specific items from an array
+      $pull: {
         channelActivity: {
           year: deleteYear,
           month: deleteMonth
@@ -169,7 +169,7 @@ async function resetReactionStreak(guildId, userId) {
     { 'guildId': guildId },
     { $set: {
         'users.$[user].reactionStreak': 0
-    }}, //         ^-----v
+    }},
     { arrayFilters: [{ 'user.userId': userId }] }
   );
 }
@@ -257,7 +257,6 @@ async function updateUserChannels(message, guildId, userId) {
 
 async function updateUserVoiceState(guildId, userId, joinTimestamp, leaveTimestamp) {
   if (joinTimestamp && !leaveTimestamp) {
-    // update user voice join event (increment join events, update lastjoin timestamp)
     try {
       await Server.findOneAndUpdate(
         { 'guildId': guildId },
@@ -273,18 +272,16 @@ async function updateUserVoiceState(guildId, userId, joinTimestamp, leaveTimesta
   }
 
   if (leaveTimestamp) {
-    // using the user's lastJoinTimestamp calc the difference in leaveTimestamp argument divided by 1000
-    // and increment join duration (which will now be in seconds).
     const { user } = await getUserDocument(guildId, userId);
-    if (user.voiceState.joinDuration > 360000) return; // Don't keep tracking if achievment already given
+    if (user.voiceState.joinDuration > 360000) return;
 
     const lastJoinTimestamp = user.voiceState.lastJoinTimestamp;
     if (!lastJoinTimestamp) return;
 
-    const maxSafeIntValue = 2147483647; // just in case something crazy happens, don't store more than int val
+    const maxSafeIntValue = 2147483647;
     const newDuration = Math.min(
       (Math.floor(
-        (Math.abs(leaveTimestamp - lastJoinTimestamp)) / 1000 // < to get duration in seconds
+        (Math.abs(leaveTimestamp - lastJoinTimestamp)) / 1000
       )),
       maxSafeIntValue
     )
@@ -305,13 +302,10 @@ async function updateUserVoiceState(guildId, userId, joinTimestamp, leaveTimesta
 async function userHasAchievement(achievement, user, guildId) {
   try {
     const result = await Server.aggregate()
-      .match({ guildId }) // find only docs that match the guildId
-      .unwind('$users') // deconstruct users array, map each output with element value
-      .match({ 'users.userId': user.userId }) // now match that new element value for the given userId
-      .project({ // passes along the documents with requested fields to the next stage in pipeline
-        // after an unwind, the resulting document replaces the array with an element value.
-        // so instead of users.userId.achievements, we now have users: { userId: 123, achievements: {...etc} }
-        // see what I mean by commenting out everything below project and console logging result
+      .match({ guildId })
+      .unwind('$users')
+      .match({ 'users.userId': user.userId })
+      .project({
         achievements: '$users.achievements'
       })
       .match({ achievements: {
@@ -320,7 +314,6 @@ async function userHasAchievement(achievement, user, guildId) {
         }
       }});
 
-    // Check if the result array is empty or not, returns true or false
     return result.length > 0;
   } catch (error) {
     console.error('Error checking user achievement:', error);

@@ -11,7 +11,6 @@ async function checkWelcomeWagon(message, guildId, userId) {
 
     if (user.wavesGiven === 9) {
       await findAndGiveAchievement('Welcome Wagon', user, message, guildId, userId);
-      // no need to keep incrementing if achievement is already given
     } else if (user.wavesGiven < 10) {
       user.wavesGiven++;
       await server.save();

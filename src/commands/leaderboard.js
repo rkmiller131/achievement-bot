@@ -9,10 +9,7 @@ const data = new SlashCommandBuilder()
   .setDescription('Shows the Top 5 Achievers');
 
 async function execute(interaction) {
-  // because we need to wait for a db interaction, we don't know how long that will take.
-  // Discord allows for 3 seconds before it considers the wait an error, so we specify a deferred reply
-  // and call it immediately to trigger an immediate, ephemeral reply that says the bot is thinking.
-  await interaction.deferReply(); // now we get 15 whole minutes to complete our tasks
+  await interaction.deferReply();
 
   try {
     const top5Users = await getTop5Users(interaction.guildId);
