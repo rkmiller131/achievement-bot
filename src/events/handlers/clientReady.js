@@ -17,7 +17,7 @@ async function clientReadyHandler(client) {
   try {
     const data = await discordAPI.put(
       // Register the achievement bot app id with the current server id
-      Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+      Routes.applicationCommands(process.env.CLIENT_ID),
       // Send a JSON payload array as the request body
       { body: client.commands.map((command) => command.data.toJSON()) }
     );
