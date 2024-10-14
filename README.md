@@ -66,7 +66,8 @@ npm install
 ```
 4️⃣ **Note, there is an `example.env` file you will need to configure your own secret keys for. <br>
 * Get started with your own bot by registering on the [Discord Developer Portal](https://discord.com/developers/docs/intro) <br>
-* Sign up for [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) for a connection path
+  * Discord Documentation has a great `Getting Started` [Tutorial](https://discord.com/developers/docs/quick-start/getting-started) <br>
+* Sign up for [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and paste your database connection path in the `.env` after running the command below.
 ```
 cp example.env .env
 ```
