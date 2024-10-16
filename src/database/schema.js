@@ -35,7 +35,6 @@ const userSchema = new mongoose.Schema({
   userId: {
     type: String, // the Id from Discord
     required: true,
-    unique: true,
     index: true
   },
   globalName: { type: String, required: true },
