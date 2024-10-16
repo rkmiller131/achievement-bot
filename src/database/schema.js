@@ -12,8 +12,7 @@ const userAchievementSchema = new mongoose.Schema({
   achievement_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Achievement',
-    required: true,
-    unique: true
+    required: true
   },
   points: {
     type: Number,
@@ -23,19 +22,18 @@ const userAchievementSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+}, { _id: false });
 
 const voiceSchema = new mongoose.Schema({
   joinEvents: { type: Number, default: 0 },
   joinDuration: { type: Number, default: 0}, // time in seconds (100 hours = 360000 sec)
   lastJoinTimestamp: { type: Date }
-});
+}, { _id: false });
 
 const userSchema = new mongoose.Schema({
   userId: {
     type: String, // the Id from Discord
-    required: true,
-    index: true
+    required: true
   },
   globalName: { type: String, required: true },
   channelsParticipatedIn: {
@@ -73,7 +71,7 @@ const serverSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  users: {type: [userSchema], default: []},
   channelActivity: { type: [channelActivitySchema], default: [] },
   dailyUserActivity: { type: [channelActivitySchema], default: [] }
 });
