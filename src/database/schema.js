@@ -73,7 +73,7 @@ const serverSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  users: {type: [userSchema], default: []},
+  users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   channelActivity: { type: [channelActivitySchema], default: [] },
   dailyUserActivity: { type: [channelActivitySchema], default: [] }
 });
