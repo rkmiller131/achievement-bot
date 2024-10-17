@@ -5,7 +5,7 @@
       <img src="https://github.com/user-attachments/assets/406e37c2-c822-4cf9-a9f0-8a062ab90a8d" alt="discord bot holding a trophy" style="width: 230px;">
     </td>
     <td valign="top">
-      <p>A simple, social reward system for interacting with peers on your Discord server.</p>
+      <p>A social reward system for interacting with peers on your Discord server.</p>
       💼 Whether you're connecting with colleagues for work, <br>
       📘 studying alongside classmates, <br>
       🎮 or simply enjoying quality time with friends, <br> <br>
