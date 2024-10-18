@@ -26,7 +26,7 @@ module.exports = function isTimestampInWindow(timestamp, startTime, endTime) {
   const date = new Date(timestamp);
 
   const startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), startTime, 0, 0);
-  const endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), endTime, 59, 999);
+  const endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), endTime, 0, 0);
 
   return date >= startDate && date <= endDate;
 }
