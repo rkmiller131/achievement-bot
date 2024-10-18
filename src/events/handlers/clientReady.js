@@ -3,12 +3,14 @@ const {
   Routes
 } = require('discord.js');
 const { connectMongoDB } = require('../../database/mongo.service');
+// const mongoose = require('mongoose')
 
 const discordAPI = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
 async function clientReadyHandler(client) {
   console.log(`${client.user.tag} is online`);
   await connectMongoDB();
+  // await mongoose.connection.dropCollection('servers')
 
   try {
     const data = await discordAPI.put(
