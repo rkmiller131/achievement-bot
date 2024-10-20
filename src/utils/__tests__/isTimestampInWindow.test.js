@@ -2,7 +2,7 @@ const isTimestampInWindow = require('../isTimestampInWindow');
 
 describe(('Timestamp in Window Check'), () => {
   it('should correctly return true if timstamp is in window', () => {
-    const result = isTimestampInWindow(1724005057726, 10, 13);
+    const result = isTimestampInWindow(1729421534096, 2, 4);
     expect(result).toBeTruthy();
   });
 
