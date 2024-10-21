@@ -51,7 +51,7 @@ async function messageCreateHandler(message) {
 
   await checkSocialButterfly(message, guildId, userId);
   await checkJabberwocky(message, guildId, userId);
-  await checkInsomniac(message, guildId, userId);
+  // await checkInsomniac(message, guildId, userId);
   await checkGifGifter(message, guildId, userId);
   await checkArtAficionado(message, guildId, userId);
   await checkFinalBoss(message, guildId, userId);
